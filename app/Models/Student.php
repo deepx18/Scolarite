@@ -22,4 +22,9 @@ class Student extends Model
     protected $casts = [
         'date_of_birth' => 'date',
     ];
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

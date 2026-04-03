@@ -20,6 +20,7 @@ class RequestFactory extends Factory
     public function definition(): array
     {
         return [
+            'student_id' => \App\Models\Student::factory(),
             'type' => fake()->randomElement(['Transfer', 'Withdrawal', 'Transcript', 'Leave', 'Appeal']),
             'status' => fake()->randomElement(['Pending', 'Approved', 'Rejected', 'In Review']),
             'comment' => fake()->optional(0.7)->sentence(),
