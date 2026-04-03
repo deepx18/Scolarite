@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->string('type');
             $table->string('status');
             $table->text('comment')->nullable();

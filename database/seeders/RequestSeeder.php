@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Request;
+use App\Models\Student;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,10 @@ class RequestSeeder extends Seeder
      */
     public function run(): void
     {
-        Request::factory(30)->create();
+        $students = Student::all();
+        
+        Request::factory(30)->create([
+            'student_id' => fn () => $students->random()->id,
+        ]);
     }
 }
