@@ -12,9 +12,16 @@ class FORequestsController extends Controller
      */
     public function index()
     {
-        // $requests = \App\Models\Request::all();
-        $requests = Student::find(7)->requests;
-        return view('fo_requests.index', compact('requests'));
+        $perPage = 5;
+        $requests = \App\Models\Request::paginate($perPage);
+        // $requests = Student::find(7)->requests;
+        return view('fo_requests.index', [
+            'requests' => $requests,
+            'currentPage' => $requests->currentPage(),
+            'totalPages' => $requests->lastPage(),
+            'total' => $requests->total(),
+            'perPage' => $perPage,
+        ]);
     }
         
     /**

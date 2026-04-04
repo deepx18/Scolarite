@@ -16,12 +16,12 @@
     <x-client.request-data-table :requests="$requests ?? []" />
 
     <!-- Pagination -->
-    {{-- <x-pagination 
+    <x-client.pagination 
         :currentPage="$currentPage ?? 1"
         :totalPages="$totalPages ?? 3"
         :total="$total ?? 24"
         :perPage="$perPage ?? 5"
-    /> --}}
+    />
 
     <!-- Footer -->
     {{-- <x-page-footer /> --}}
