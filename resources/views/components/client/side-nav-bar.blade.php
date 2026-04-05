@@ -26,8 +26,11 @@
                 New Request
             </button>
         </a>
-        <a class="text-slate-600 dark:text-slate-400 py-3 px-4 flex items-center gap-3 hover:translate-x-1 transition-transform font-label text-sm font-semibold" href="#">
-            <span class="material-symbols-outlined">logout</span> Logout
-        </a>
+        <form method="POST" action="{{ route('logout.student') }}" class="inline">
+            @csrf
+            <button type="submit" class="text-slate-600 dark:text-slate-400 py-3 px-4 flex items-center gap-3 hover:translate-x-1 transition-transform font-label text-sm font-semibold w-full text-left">
+                <span class="material-symbols-outlined">logout</span> Logout
+            </button>
+        </form>
     </div>
 </aside>

@@ -48,4 +48,5 @@ class AdminController extends Controller
         $request->load('student');
         return view('Admin.Request_Detail', compact('request'));
     }
+
 }

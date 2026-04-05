@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use App\Models\User;
 
 return [
@@ -42,6 +43,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -67,10 +78,15 @@ return [
             'model' => env('AUTH_MODEL', User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => Student::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => Admin::class,
+        ],
     ],
 
     /*
