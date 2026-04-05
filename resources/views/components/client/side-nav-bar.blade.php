@@ -22,12 +22,16 @@
     </nav>
     <div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1">
         <a href="{{ route('requests.create') }}">
-            <button class="w-full bg-primary text-white py-3 px-4 rounded-xl font-bold text-sm shadow-lg shadow-blue-900/20 active:scale-95 transition-all mb-4">
+            <button class="w-full bg-blue-500 text-white py-3 px-4 rounded-xl font-bold text-sm shadow-lg shadow-blue-900/20 active:scale-95 transition-all mb-4">
                 New Request
             </button>
         </a>
-        <a class="text-slate-600 dark:text-slate-400 py-3 px-4 flex items-center gap-3 hover:translate-x-1 transition-transform font-label text-sm font-semibold" href="#">
-            <span class="material-symbols-outlined">logout</span> Logout
-        </a>
+
+       <form action="{{ route('students.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full bg-red-500 text-white py-3 px-4 rounded-xl font-bold text-sm shadow-lg shadow-red-900/20 active:scale-95 transition-all">
+                Logout
+            </button>
+        </form>
     </div>
 </aside>

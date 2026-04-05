@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'apogee_number',
+        'role',
+
+
     ];
 
     /**
@@ -43,7 +47,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'dob' => 'date', // Ensure dob is cast to a date
         ];
     }
 }

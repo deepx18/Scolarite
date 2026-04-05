@@ -23,7 +23,7 @@ class AdminFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
-            'password' => Hash::make('password123'),
+            'password' => 'password123',
             'role' => fake()->randomElement(['admin', 'super_admin']),
         ];
     }
@@ -32,6 +32,7 @@ class AdminFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => 'super_admin',
+            'password' => 'password123',
         ]);
     }
 
@@ -39,6 +40,7 @@ class AdminFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => 'admin',
+            'password' => 'password123',
         ]);
     }
 }

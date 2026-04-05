@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class AdminController extends Controller
 {
 
@@ -47,5 +48,44 @@ class AdminController extends Controller
     {
         $request->load('student');
         return view('Admin.Request_Detail', compact('request'));
+    }
+
+    // Admin authentication method
+    public function showLoginForm()
+    {
+        return view('layouts.login-admin');
+    }
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        if (
+            auth()->guard('admin')->attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ])
+        ) {
+            $request->session()->regenerate();
+            return redirect()->route('admin.requests.index');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.'
+        ])->onlyInput('email');
+    }
+
+
+    public function logout(Request $request)
+    {
+        // Use the 'admin' guard for logout
+        auth('admin')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/admin/login');
     }
 }
