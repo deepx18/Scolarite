@@ -42,9 +42,12 @@
             <span class="material-symbols-outlined">contact_support</span>
             <span class="font-medium">Support</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error/10 rounded-lg transition-all" href="#">
-            <span class="material-symbols-outlined">logout</span>
-            <span class="font-medium">Log Out</span>
-        </a>
+        <form method="POST" action="{{ route('admin.logout') }}" class="m-0">
+            @csrf
+            <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 text-error hover:bg-error/10 rounded-lg transition-all text-left">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-medium">Log Out</span>
+            </button>
+        </form>
     </div>
 </aside>

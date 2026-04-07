@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\Student;
 use App\Models\User;
 
