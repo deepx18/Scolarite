@@ -10,7 +10,7 @@
         </label>
     @endif
     @if($type === 'textarea')
-        <textarea class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary focus:bg-white transition-all resize-none {{ $rows ? "min-h-[" . ($rows * 28) . "px]" : 'min-h-[140px]' }}" 
+        <textarea class="w-full bg-surface-container-low border-primary rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary focus:bg-white transition-all resize-none {{ $rows ? "min-h-[" . ($rows * 28) . "px]" : 'min-h-[140px]' }}" 
             name="{{ $name }}" 
             placeholder="{{ $placeholder }}"
             {{ $required ? 'required' : '' }}>{{ $value }}</textarea>
@@ -27,7 +27,7 @@
             </div> --}}
         </div>
     @else
-        <input class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary focus:bg-white transition-all"
+        <input class="w-full bg-surface-container-low border-primary rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary focus:bg-white transition-all"
             type="{{ $type }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"

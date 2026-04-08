@@ -10,10 +10,34 @@ class Request extends Model
     use HasFactory;
 
     protected $fillable = [
+        'reference',
         'student_id',
         'type',
         'status',
         'comment',
+        'details',
+        'submitted_at',
+        'reviewed_at',
+    ];
+
+    // Request type constants
+    public const TYPES = [
+        'transfer' => 'Transfer Request',
+        'withdrawal' => 'Course Withdrawal',
+        'transcript' => 'Academic Transcript',
+        'leave' => 'Leave of Absence',
+        'appeal' => 'Grade Appeal',
+        'extension' => 'Assignment Extension',
+        'accommodation' => 'Academic Accommodation',
+    ];
+
+    // Status constants
+    public const STATUSES = [
+        'pending' => 'Pending',
+        'in_review' => 'In Review',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+        'archived' => 'Archived',
     ];
 
     public function student()
@@ -22,7 +46,70 @@ class Request extends Model
     }
 
     protected $casts = [
+        'submitted_at' => 'date',
+        'reviewed_at' => 'datetime',
+        'details' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Get the display label for request type
+     */
+    public function typeLabel(): string
+    {
+        return self::TYPES[$this->type] ?? ucfirst(str_replace('_', ' ', $this->type));
+    }
+
+    /**
+     * Get the display label for status
+     */
+    public function statusLabel(): string
+    {
+        return self::STATUSES[$this->status] ?? ucfirst(str_replace('_', ' ', $this->status));
+    }
+
+    /**
+     * Type-specific validation rules
+     */
+    public static function typeRules(string $type): array
+    {
+        return match ($type) {
+            'transfer' => [
+                'destination_program' => 'required|string|max:255',
+                'reason' => 'required|string|max:1000',
+            ],
+            'withdrawal' => [
+                'course_code' => 'required|string|max:20',
+                'course_name' => 'required|string|max:255',
+                'reason' => 'required|string|max:1000',
+            ],
+            'transcript' => [
+                'number_of_copies' => 'required|integer|min:1|max:10',
+                'delivery_method' => 'required|in:email,pickup,mail',
+            ],
+            'leave' => [
+                'leave_type' => 'required|in:medical,personal,academic',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'reason' => 'required|string|max:1000',
+            ],
+            'appeal' => [
+                'course_code' => 'required|string|max:20',
+                'grade_received' => 'required|string|max:5',
+                'reason' => 'required|string|max:1000',
+            ],
+            'extension' => [
+                'assignment_name' => 'required|string|max:255',
+                'requested_days' => 'required|integer|min:1|max:14',
+                'reason' => 'required|string|max:1000',
+            ],
+            'accommodation' => [
+                'accommodation_type' => 'required|string|max:255',
+                'supporting_documentation' => 'required|boolean',
+                'description' => 'required|string|max:1000',
+            ],
+            default => [],
+        };
+    }
 }

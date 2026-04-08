@@ -2,19 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Request;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as HttpRequest;
+use Carbon\Carbon;
 
 class FORequestsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the requests with pagination
      */
-    public function index()
+    public function index(HttpRequest $request)
     {
         $perPage = 5;
-        $requests = \App\Models\Request::paginate($perPage);
-        // $requests = Student::find(7)->requests;
+        $student = auth('student')->user();
+        $query = Request::where('student_id', $student->id);
+
+        // Search by reference or type
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('reference', 'like', "%{$search}%")
+                  ->orWhere('type', 'like', "%{$search}%");
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        $requests = $query->with('student')
+                         ->orderBy('submitted_at', 'desc')
+                         ->paginate($perPage);
+
         return view('fo_requests.index', [
             'requests' => $requests,
             'currentPage' => $requests->currentPage(),
@@ -23,40 +42,95 @@ class FORequestsController extends Controller
             'perPage' => $perPage,
         ]);
     }
-        
+
     /**
-     * Show the form for creating a new resource.
-    */
-    public function create()
+     * Show the form for creating a new request
+     */
+    public function create(HttpRequest $request)
     {
-        return view('fo_requests.create');
+        $type = $request->query('type');
+        return view('fo_requests.create', [
+            'types' => Request::TYPES,
+            'selectedType' => $type,
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created request in storage
      */
-    public function store(Request $request)
+    public function store(HttpRequest $request)
     {
-        \App\Models\Request::create([
-            'student_id' => 7,
-            'type' => $request->input('type'),
-            'comment' => $request->input('comment'),
-            'status' => 'PENDING',
+        $type = $request->input('type');
+
+        // Validate base fields
+        $validated = $request->validate([
+            'type' => 'required|in:' . implode(',', array_keys(Request::TYPES)),
+            'comment' => 'nullable|string|max:1000',
         ]);
 
-        return redirect()->route('requests.index');
+        // Validate type-specific fields
+        $typeRules = Request::typeRules($type);
+        $typeValidated = $request->validate($typeRules);
+        
+        // Only keep fields defined in typeRules
+        $typeData = array_intersect_key($typeValidated, array_flip(array_keys($typeRules)));
+
+        // Generate next reference
+        $reference = $this->nextReference();
+
+        // Get authenticated student
+        $student = auth('student')->user();
+
+        // Create the request
+        Request::create([
+            'reference' => $reference,
+            'student_id' => $student->id,
+            'type' => $type,
+            'status' => 'pending',
+            'comment' => $validated['comment'] ?? null,
+            'details' => $typeData,
+            'submitted_at' => Carbon::now()->toDateString(),
+        ]);
+
+        return redirect()->route('requests.index')
+                       ->with('success', 'Request submitted successfully. Your reference number is: ' . $reference);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified request
      */
     public function show(string $id)
     {
-        //
+        $student = auth('student')->user();
+        $request = Request::with('student')
+                         ->where('student_id', $student->id)
+                         ->findOrFail($id);
+        return view('fo_requests.show', ['request' => $request]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate next unique request reference
+     */
+    private function nextReference(): string
+    {
+        $year = now()->year;
+        $lastRequest = Request::where('reference', 'like', "REQ-{$year}-%")
+                             ->orderBy('id', 'desc')
+                             ->first();
+
+        if (!$lastRequest) {
+            $nextNumber = 1;
+        } else {
+            // Extract number from reference like REQ-2026-0001
+            preg_match('/REQ-\d+-(\d+)/', $lastRequest->reference, $matches);
+            $nextNumber = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
+        }
+
+        return 'REQ-' . $year . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Show the form for editing the specified request.
      */
     public function edit(string $id)
     {
@@ -64,15 +138,15 @@ class FORequestsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified request in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(HttpRequest $request, string $id)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified request from storage.
      */
     public function destroy(string $id)
     {
