@@ -148,7 +148,7 @@
                             <span class="material-symbols-outlined text-outline text-lg sm:text-xl" data-icon="badge">badge</span>
                         </div>
                         <input
-                            class="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-surface-container-highest border-0 border-b-2 {{ $errors->has('apogee') ? 'border-error focus:border-error' : 'border-transparent focus:border-primary' }} focus:ring-0 rounded-t-lg text-on-surface text-sm sm:text-base font-medium placeholder:text-outline/60 transition-all"
+                            class="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-surface-container-highest border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-t-lg text-on-surface text-sm sm:text-base font-medium placeholder:text-outline/60 transition-all"
                             id="apogee" name="apogee" placeholder="e.g. 19028374 or CNE" type="text"
                             value="{{ old('apogee') }}" />
                     </div>
@@ -167,7 +167,7 @@
                                 data-icon="calendar_today">calendar_today</span>
                         </div>
                         <input
-                            class="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-surface-container-highest border-0 border-b-2 {{ $errors->has('dob') ? 'border-error focus:border-error' : 'border-transparent focus:border-primary' }} focus:ring-0 rounded-t-lg text-on-surface text-sm sm:text-base font-medium transition-all"
+                            class="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-surface-container-highest border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-t-lg text-on-surface text-sm sm:text-base font-medium transition-all"
                             id="dob" name="dob" type="date" value="{{ old('dob') }}" />
                     </div>
                 </div>

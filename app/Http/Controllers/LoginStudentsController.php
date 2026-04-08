@@ -16,13 +16,20 @@ class LoginStudentsController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'apogee' => 'required|string',
-            'dob' => 'required|date',
+            'apogee' => 'nullable|string',
+            'dob' => 'nullable|date',
         ], [
             'apogee.required' => 'Apogee number or CNE is required',
             'dob.required' => 'The date of birth is required',
             'dob.date' => 'The date of birth must be a valid date',
         ]);
+
+        // Check if both fields are provided
+        if (empty($validated['apogee']) || empty($validated['dob'])) {
+            return back()
+                ->withErrors(['general' => 'Please enter both your Apogee number/CNE and date of birth'])
+                ->withInput();
+        }
 
         $student = Student::where(function ($query) use ($validated) {
             $query->where('apogee_number', trim($validated['apogee']))
@@ -37,7 +44,7 @@ class LoginStudentsController extends Controller
         }
 
         return back()
-            ->withErrors(['apogee' => 'Invalid credentials'])
+            ->withErrors(['general' => 'Invalid credentials. Please check your Apogee number/CNE and date of birth.'])
             ->withInput();
     }
 
