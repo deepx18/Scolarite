@@ -32,11 +32,9 @@ class AdminAuthController extends Controller
 
             // Check role and redirect accordingly
             if ($admin->role === 'super_admin') {
-                // return redirect()->route('admin.dashboard')->with('success', 'Welcome Super Admin!');
-                return redirect()->route('admin.requests.index')->with('success', 'Welcome Super Admin!');
+                return redirect()->route('admin.manage.index')->with('success', 'Welcome Super Admin!');
             }
 
-            // return redirect()->route('admin.dashboard')->with('success', 'Welcome Admin!');
             return redirect()->route('admin.requests.index')->with('success', 'Welcome Admin!');
         }
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\FORequestsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginStudentsController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,18 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login')->middleware('guest:admin');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.submit')->middleware('guest:admin');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout')->middleware('auth:admin');
-    // Route::get('/dashboard', function () {
-    //     return view('admin.dashboard');
-    // })->name('admin.dashboard')->middleware('auth:admin');
+
+    Route::middleware(['auth.admin', 'super.admin'])->name('admin.manage.')->group(function () {
+        Route::resource('manage-admins', SuperAdminController::class)
+            ->parameters(['manage-admins' => 'admin'])
+            ->names([
+                'index' => 'index',
+                'store' => 'store',
+                'show' => 'show',
+                'edit' => 'edit',
+                'update' => 'update',
+                'destroy' => 'destroy',
+            ])
+            ->except(['create']);
+    });
 });

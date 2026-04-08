@@ -8,7 +8,7 @@
                 <span class="material-symbols-outlined">account_balance</span>
             </div>
             <div>
-                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">Admin Control</h2>
+                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">Super Admin Control</h2>
                 <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Institutional Authority</p>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <span class="material-symbols-outlined">dashboard</span>
             <span class="font-medium">Overview</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'requests' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="#">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'requests' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="{{ route('admin.requests.index') }}">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
             <span class="font-medium">All Requests</span>
         </a>
