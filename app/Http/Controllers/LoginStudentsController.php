@@ -19,14 +19,17 @@ class LoginStudentsController extends Controller
             'apogee' => 'required|string',
             'dob' => 'required|date',
         ], [
-            'apogee.required' => 'Apogee number is required',
+            'apogee.required' => 'Apogee number or CNE is required',
             'dob.required' => 'The date of birth is required',
             'dob.date' => 'The date of birth must be a valid date',
         ]);
 
-        $student = Student::where('apogee_number', trim($validated['apogee']))
-            ->where('date_of_birth', trim($validated['dob']))
-            ->first();
+        $student = Student::where(function ($query) use ($validated) {
+            $query->where('apogee_number', trim($validated['apogee']))
+                  ->orWhere('cne', trim($validated['apogee']));
+        })
+        ->where('date_of_birth', trim($validated['dob']))
+        ->first();
 
         if ($student) {
             Auth::guard('student')->login($student);

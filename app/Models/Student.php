@@ -12,6 +12,7 @@ class Student extends Authenticatable
 
     protected $fillable = [
         'apogee_number',
+        'cne',
         'date_of_birth',
         'department',
         'first_name',

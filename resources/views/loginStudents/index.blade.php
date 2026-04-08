@@ -136,12 +136,12 @@
                         </div>
                     </div>
                 @endif
-                <!-- Apogee Number Field -->
+                <!-- Apogee Number or CNE Field -->
                 <div class="group">
                     <label
                         class="block font-label text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-secondary mb-2 group-focus-within:text-primary transition-colors"
                         for="apogee">
-                        Apogee Number
+                        Apogee Number or CNE
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -149,10 +149,10 @@
                         </div>
                         <input
                             class="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-surface-container-highest border-0 border-b-2 {{ $errors->has('apogee') ? 'border-error focus:border-error' : 'border-transparent focus:border-primary' }} focus:ring-0 rounded-t-lg text-on-surface text-sm sm:text-base font-medium placeholder:text-outline/60 transition-all"
-                            id="apogee" name="apogee" placeholder="e.g. 19028374" type="text"
+                            id="apogee" name="apogee" placeholder="e.g. 19028374 or CNE" type="text"
                             value="{{ old('apogee') }}" />
                     </div>
-                    <p class="mt-1 sm:mt-2 text-[10px] sm:text-[11px] text-outline">Your unique university identification number.</p>
+                    <p class="mt-1 sm:mt-2 text-[10px] sm:text-[11px] text-outline">Your unique university identification number or CNE.</p>
                 </div>
                 <!-- Date of Birth Field -->
                 <div class="group">

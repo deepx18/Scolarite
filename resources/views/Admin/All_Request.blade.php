@@ -40,7 +40,7 @@
                                     </div>
                                     <div>
                                         <p class="font-bold text-on-surface text-sm">{{ $request->student->first_name }} {{ $request->student->last_name }}</p>
-                                        <p class="text-xs text-slate-400">{{ $request->student->apogee_number }}</p>
+                                        <p class="text-xs text-slate-400">{{ $request->student->cne ?? $request->student->apogee_number }}</p>
                                     </div>
                                 </div>
                             </td>
