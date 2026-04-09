@@ -5,6 +5,7 @@ use App\Http\Controllers\FORequestsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginStudentsController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,6 +34,19 @@ Route::prefix('admin')->group(function () {
     Route::post('/students', [AdminController::class, 'storeStudent'])->name('admin.students.store')->middleware('auth:admin');
     Route::get('/students/bulk-upload', [AdminController::class, 'bulkUploadForm'])->name('admin.students.bulkUpload')->middleware('auth:admin');
     Route::post('/students/bulk-upload', [AdminController::class, 'bulkUploadStore'])->name('admin.students.bulkUpload.store')->middleware('auth:admin');
+    Route::middleware(['auth.admin', 'super.admin'])->name('admin.manage.')->group(function () {
+        Route::resource('manage-admins', SuperAdminController::class)
+            ->parameters(['manage-admins' => 'admin'])
+            ->names([
+                'index' => 'index',
+                'store' => 'store',
+                'show' => 'show',
+                'edit' => 'edit',
+                'update' => 'update',
+                'destroy' => 'destroy',
+            ])
+            ->except(['create']);
+    });
 });
 
 Route::get('/dashboard', function () {

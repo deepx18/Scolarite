@@ -1,3 +1,10 @@
+@props(['active' => ''])
+
+@php
+    $admin = auth('admin')->user();
+    $role = optional($admin)->role ?? 'admin';
+@endphp
+
 <!-- SideNavBar -->
 <aside
     class="fixed left-0 top-0 h-screen w-64 pt-20 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 space-y-2 tonal-layering">
@@ -7,8 +14,8 @@
                 <span class="material-symbols-outlined">account_balance</span>
             </div>
             <div>
-                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">Admin Portal</h2>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Central Management</p>
+                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">{{ $role === 'super_admin' ? 'Super Admin Control' : 'Admin Control' }}</h2>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">{{ $role === 'super_admin' ? 'Institutional Authority' : 'Institutional Control' }}</p>
             </div>
         </div>
     </div>

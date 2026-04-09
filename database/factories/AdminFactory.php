@@ -23,6 +23,7 @@ class AdminFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
+            'department' => fake()->randomElement(['Computer Science', 'Engineering', 'Business', 'Medicine', 'Law']),
             'password' => 'password123',
             'role' => fake()->randomElement(['admin', 'super_admin']),
         ];
