@@ -35,6 +35,13 @@
             <span class="material-symbols-outlined">group</span>
             <span class="font-medium">Student Directory</span>
         </a>
+        @if($role === 'super_admin')
+            <a href="{{ route('admin.manage.index') }}"
+                class="{{ request()->routeIs('admin.manage.*') ? 'flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-900 dark:text-white shadow-sm rounded-lg font-semibold ease-in-out duration-150' : 'flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150' }}">
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <span class="font-medium">Manage Administrators</span>
+            </a>
+        @endif
         <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150"
             href="#">
             <span class="material-symbols-outlined">analytics</span>
