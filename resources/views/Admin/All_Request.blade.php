@@ -1,5 +1,6 @@
 <x-admin.layout>
     <x-admin.navbar />
+    
     <x-admin.sidebar />
 
     <!-- Main Content Canvas -->

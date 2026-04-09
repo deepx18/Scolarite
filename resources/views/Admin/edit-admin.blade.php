@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <x-admin.sidebar-SuperA active="manage-admins" />
-    <x-admin.navbar-SuperA />
+    <x-admin.sidebar active="manage-admins" />
+    <x-admin.navbar />
 
     <div class="ml-72 min-h-screen bg-background">
 

@@ -1,5 +1,10 @@
 @props(['active' => ''])
 
+@php
+    $admin = auth('admin')->user();
+    $role = optional($admin)->role ?? 'admin';
+@endphp
+
 <!-- SideNavBar -->
 <aside class="fixed left-0 top-0 h-screen w-64 pt-20 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 space-y-2 tonal-layering">
     <div class="mb-8 px-4">
@@ -8,8 +13,8 @@
                 <span class="material-symbols-outlined">account_balance</span>
             </div>
             <div>
-                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">Admin Control</h2>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Institutional Authority</p>
+                <h2 class="font-['Manrope'] font-black text-blue-950 dark:text-blue-50 text-sm">{{ $role === 'super_admin' ? 'Super Admin Control' : 'Admin Control' }}</h2>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">{{ $role === 'super_admin' ? 'Institutional Authority' : 'Institutional Control' }}</p>
             </div>
         </div>
     </div>
@@ -18,7 +23,7 @@
             <span class="material-symbols-outlined">dashboard</span>
             <span class="font-medium">Overview</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'requests' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="#">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'requests' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="{{ route('admin.requests.index') }}">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
             <span class="font-medium">All Requests</span>
         </a>
@@ -26,10 +31,12 @@
             <span class="material-symbols-outlined">group</span>
             <span class="font-medium">Student Directory</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'manage-admins' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="{{ route('admin.manage.index') }}">
-            <span class="material-symbols-outlined">manage_accounts</span>
-            <span class="font-medium">Manage Administrators</span>
-        </a>
+        @if($role === 'super_admin')
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'manage-admins' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="{{ route('admin.manage.index') }}">
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <span class="font-medium">Manage Administrators</span>
+            </a>
+        @endif
         <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'reports' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="#">
             <span class="material-symbols-outlined">analytics</span>
             <span class="font-medium">Reports</span>
