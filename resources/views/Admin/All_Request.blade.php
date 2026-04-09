@@ -56,16 +56,20 @@
                             </td>
                             <td class="p-5">
                                 @php
+                                    $normalizedStatus = strtolower(str_replace(' ', '_', $request->status));
                                     $statusColors = [
-                                        'Pending' => ['bg-amber-100', 'text-amber-800', 'bg-amber-500'],
-                                        'Approved' => ['bg-emerald-100', 'text-emerald-800', 'bg-emerald-500'],
-                                        'Rejected' => ['bg-rose-100', 'text-rose-800', 'bg-rose-500'],
+                                        'pending' => ['bg-amber-50', 'text-amber-700', 'bg-amber-500'],
+                                        'approved' => ['bg-emerald-50', 'text-emerald-700', 'bg-emerald-500'],
+                                        'rejected' => ['bg-rose-50', 'text-rose-700', 'bg-rose-500'],
+                                        'in_review' => ['bg-sky-50', 'text-sky-700', 'bg-sky-500'],
+                                        'archived' => ['bg-slate-50', 'text-slate-700', 'bg-slate-500'],
                                     ];
-                                    $colors = $statusColors[$request->status] ?? ['bg-gray-100', 'text-gray-800', 'bg-gray-500'];
+                                    $colors = $statusColors[$normalizedStatus] ?? ['bg-gray-100', 'text-gray-800', 'bg-gray-500'];
+                                    $statusLabel = ucwords(str_replace('_', ' ', $normalizedStatus));
                                 @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $colors[0] }} {{ $colors[1] }}">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $colors[0] }} {{ $colors[1] }}">
                                     <span class="w-1.5 h-1.5 rounded-full {{ $colors[2] }} mr-1.5"></span>
-                                    {{ $request->status }}
+                                    {{ $statusLabel }}
                                 </span>
                             </td>
                             <td class="p-5 text-right">
