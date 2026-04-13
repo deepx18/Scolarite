@@ -36,7 +36,7 @@
 
     <!-- Action Buttons -->
     <div class="col-span-12 md:col-span-3 flex gap-2">
-        <button type="submit" name="export" value="1"
+        <button type="button" onclick="const input = document.createElement('input'); input.type = 'hidden'; input.name = 'export'; input.value = '1'; this.form.appendChild(input); this.form.submit();"
             class="flex-1 bg-surface-container-highest text-on-surface font-bold py-2 rounded-xl text-sm hover:bg-slate-300 transition-colors flex items-center justify-center gap-2">
             <span class="material-symbols-outlined text-sm">file_download</span>
             {{ __('admin.export') }}

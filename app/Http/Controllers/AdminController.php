@@ -34,10 +34,18 @@ class AdminController extends Controller
                 $query->where('status', $status);
             })
             ->when($request->search, function ($query, $search) {
-                $query->whereHas('student', function ($studentQuery) use ($search) {
-                    $studentQuery->where('apogee_number', 'like', "%{$search}%")
-                        ->orWhere('first_name', 'like', "%{$search}%")
-                        ->orWhere('last_name', 'like', "%{$search}%");
+                $terms = preg_split('/\s+/', trim($search));
+
+                $query->whereHas('student', function ($studentQuery) use ($terms) {
+                    foreach ($terms as $term) {
+                        $studentQuery->where(function ($studentSubQuery) use ($term) {
+                            $studentSubQuery->where('apogee_number', 'like', "%{$term}%")
+                                ->orWhere('cne', 'like', "%{$term}%")
+                                ->orWhere('first_name', 'like', "%{$term}%")
+                                ->orWhere('last_name', 'like', "%{$term}%")
+                                ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$term}%"]);
+                        });
+                    }
                 });
             })
             ->latest();
