@@ -73,7 +73,21 @@
                                 </span>
                             </td>
                             <td class="p-5 text-right">
-                                <a href="{{ route('admin.requests.show', $request->id) }}" class="text-primary font-bold text-sm hover:underline">View</a>
+                                <div class="flex items-center justify-end gap-2">
+                                    <a href="{{ route('admin.requests.show', $request->id) }}" class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 transition" title="View">
+                                        <span class="material-symbols-outlined text-base">visibility</span>
+                                    </a>
+                                    <button type="button" onclick="openStatusModal({{ $request->id }}, '{{ $request->status }}')" class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 transition" title="Update Status">
+                                        <span class="material-symbols-outlined text-base">edit</span>
+                                    </button>
+                                    <form action="{{ route('admin.requests.destroy', $request->id) }}" method="POST" class="inline" onsubmit="return confirm('Delete this request?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition" title="Delete">
+                                            <span class="material-symbols-outlined text-base">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -107,4 +121,54 @@
             </div>
         </section>
     </main>
+
+    <!-- Status Update Modal -->
+    <div id="statusModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Update Request Status</h2>
+            
+            <form id="statusForm" method="POST" class="space-y-4">
+                @csrf
+                @method('PUT')
+                
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Status</label>
+                    <select name="status" id="statusSelect" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                        <option value="Pending">Pending</option>
+                        <option value="In Review">In Review</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Archived">Archived</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-3 pt-6">
+                    <button type="button" onclick="closeStatusModal()" class="flex-1 px-4 py-3 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-3 bg-primary text-white font-semibold rounded-xl hover:opacity-90 transition">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openStatusModal(requestId, currentStatus) {
+            document.getElementById('statusSelect').value = currentStatus;
+            document.getElementById('statusForm').action = `/admin/requests/${requestId}`;
+            document.getElementById('statusModal').classList.remove('hidden');
+        }
+
+        function closeStatusModal() {
+            document.getElementById('statusModal').classList.add('hidden');
+        }
+
+        document.getElementById('statusModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeStatusModal();
+            }
+        });
+    </script>
 </x-admin.layout>

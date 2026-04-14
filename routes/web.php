@@ -21,6 +21,8 @@ Route::post('/profile/change-password', [StudentProfileController::class, 'updat
 
 Route::get('/admin/requests', [AdminController::class, 'index'])->name('admin.requests.index')->middleware('auth.admin');
 Route::get('/admin/requests/{request}', [AdminController::class, 'show'])->name('admin.requests.show')->middleware('auth.admin');
+Route::put('/admin/requests/{request}', [AdminController::class, 'update'])->name('admin.requests.update')->middleware('auth.admin');
+Route::delete('/admin/requests/{request}', [AdminController::class, 'destroy'])->name('admin.requests.destroy')->middleware('auth.admin');
 Route::get('/requests/{request}', [FORequestsController::class, 'show'])->name('requests.show')->middleware('auth.student');
 
 

@@ -159,6 +159,23 @@ class AdminController extends Controller
         return view('Admin.Request_Detail', compact('request'));
     }
 
+    public function update(Request $httpRequest, \App\Models\Request $request)
+    {
+        $validated = $httpRequest->validate([
+            'status' => 'required|in:Pending,In Review,Approved,Rejected,Archived',
+        ]);
+
+        $request->update($validated);
+
+        return back()->with('success', 'Request status updated successfully.');
+    }
+
+    public function destroy(\App\Models\Request $request)
+    {
+        $request->delete();
+        return redirect()->route('admin.requests.index')->with('success', 'Request deleted successfully.');
+    }
+
     public function dashboard()
     {
         $totalRequests = \App\Models\Request::count();
