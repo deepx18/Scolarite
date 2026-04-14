@@ -144,24 +144,6 @@
                     <p class="mt-4 font-semibold text-slate-900 dark:text-white">{{ __('admin.bulk_upload') }}</p>
                     <p class="mt-2 text-sm text-slate-500">{{ __('admin.bulk_upload_description') }}</p>
                 </a>
-                <a href="{{ route('admin.notifications.create') }}"
-                    class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800 text-left transition hover:-translate-y-0.5 block">
-                    <div
-                        class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 shadow-sm">
-                        <span class="material-symbols-outlined">mark_email_read</span>
-                    </div>
-                    <p class="mt-4 font-semibold text-slate-900 dark:text-white">{{ __('admin.notify_all') }}</p>
-                    <p class="mt-2 text-sm text-slate-500">{{ __('admin.notify_all_description') }}</p>
-                </a>
-                <a href="{{ route('admin.notifications.history') }}"
-                    class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800 text-left transition hover:-translate-y-0.5 block">
-                    <div
-                        class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 shadow-sm">
-                        <span class="material-symbols-outlined">history</span>
-                    </div>
-                    <p class="mt-4 font-semibold text-slate-900 dark:text-white">{{ __('admin.notification_history') }}</p>
-                    <p class="mt-2 text-sm text-slate-500">{{ __('admin.notification_history_description') }}</p>
-                </a>
             </div>
         </div>
 

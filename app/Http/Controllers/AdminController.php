@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use App\Notifications\AdminAnnouncementNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -157,38 +155,6 @@ class AdminController extends Controller
     {
         $request->load('student');
         return view('Admin.Request_Detail', compact('request'));
-    }
-
-    public function announcementForm()
-    {
-        return view('Admin.notify-all');
-    }
-
-    public function sendAnnouncement(Request $request)
-    {
-        $validated = $request->validate([
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-        ]);
-
-        $students = Student::whereNotNull('email')->where('email', '!=', '')->get();
-
-        if ($students->isEmpty()) {
-            return back()->with('error', 'Aucun étudiant trouvé avec une adresse email valide.');
-        }
-
-        Notification::send($students, new AdminAnnouncementNotification($validated));
-
-        return redirect()->route('admin.dashboard')->with('success', 'Annonce envoyée à tous les étudiants.');
-    }
-
-    public function notificationsHistory()
-    {
-        $notifications = \Illuminate\Notifications\DatabaseNotification::where('type', AdminAnnouncementNotification::class)
-            ->latest()
-            ->paginate(20);
-
-        return view('Admin.notifications-history', compact('notifications'));
     }
 
     public function dashboard()
