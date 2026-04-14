@@ -103,6 +103,7 @@ class AdminController extends Controller
 
         $header = fgetcsv($handle);
         $requiredColumns = ['first_name', 'last_name', 'email', 'apogee_number', 'cne', 'date_of_birth', 'department', 'status'];
+        $optionalColumns = ['cin', 'birth_city', 'nationality', 'gender', 'study_level', 'specialization', 'bac_year', 'province', 'academic_track'];
 
         $normalizedHeader = array_map(function ($column) {
             return Str::of($column)->trim()->lower()->replace(' ', '_')->__toString();
@@ -125,7 +126,8 @@ class AdminController extends Controller
             }
 
             $data = array_combine($normalizedHeader, $row);
-            $data = array_intersect_key($data, array_flip($requiredColumns));
+            $allowedColumns = array_merge($requiredColumns, $optionalColumns);
+            $data = array_intersect_key($data, array_flip($allowedColumns));
 
             if (empty($data['email']) || empty($data['apogee_number']) || empty($data['first_name']) || empty($data['last_name'])) {
                 $skipped++;
