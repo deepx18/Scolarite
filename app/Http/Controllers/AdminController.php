@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+
 
 class AdminController extends Controller
 {
@@ -198,14 +200,32 @@ class AdminController extends Controller
                 ];
             });
 
+        // Check reclamations status from Redis cache
+        $reclamationsEnabled = Cache::store(config('cache.default'))->get('reclamations_enabled', true) ?? true;
+
         return view('Admin.dashboard', compact(
             'totalRequests',
             'pending',
             'approved',
             'rejected',
             'recentRequests',
-            'typeVolumes'
+            'typeVolumes',
+            'reclamationsEnabled' // Pass the reclamations status to the view
         ));
+    }
+
+    // Toggle reclamations open/close status
+    public function toggleReclamations(Request $request)
+    {
+        $request->validate([
+            'status' => 'required|in:on,off',
+        ]);
+
+        $enabled = $request->input('status') === 'on';
+        Cache::store(config('cache.default'))->forever('reclamations_enabled', $enabled);
+
+        return redirect()->route('admin.dashboard')
+            ->with('success', $enabled ? 'Reclamations are now enabled.' : 'Reclamations are now disabled.');
     }
 
     public function createStudent()

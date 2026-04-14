@@ -49,6 +49,13 @@ class FORequestsController extends Controller
     public function create(HttpRequest $request)
     {
         $type = $request->query('type');
+        // If type is provided, validate it against allowed types
+
+        if (!$this->reclamationsEnabled()) {
+            return redirect()->route('requests.index')
+                ->with('error', 'Reclamations are currently closed. Please try again later.');
+        }
+
         return view('fo_requests.create', [
             'types' => Request::TYPES,
             'selectedType' => $type,
@@ -60,6 +67,11 @@ class FORequestsController extends Controller
      */
     public function store(HttpRequest $request)
     {
+        if (!$this->reclamationsEnabled()) {
+            return redirect()->route('requests.index')
+                ->with('error', 'Reclamations are currently closed. Your submission could not be accepted.');
+        }
+
         $type = $request->input('type');
 
         // Validate base fields
