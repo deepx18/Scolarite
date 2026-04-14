@@ -55,6 +55,29 @@
                 </div>
             </div>
 
+            <!-- Reclamations Status -->
+
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+                <div class="xl:col-span-4 rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <p class="text-sm text-slate-500">Reclamation Status</p>
+                            <p class="mt-2 text-2xl font-bold {{ $reclamationsEnabled ? 'text-emerald-700' : 'text-rose-600' }}">
+                                {{ $reclamationsEnabled ? 'Open for submissions' : 'Closed to students' }}
+                            </p>
+                            <p class="mt-3 text-xs text-slate-500">Students may {{ $reclamationsEnabled ? 'submit new reclamations' : 'not submit new reclamations' }} while this mode is active.</p>
+                        </div>
+                        <form action="{{ route('admin.reclamations.toggle') }}" method="POST" class="flex items-center gap-3">
+                            @csrf
+                            <input type="hidden" name="status" value="{{ $reclamationsEnabled ? 'off' : 'on' }}">
+                            <button type="submit" class="rounded-full px-5 py-3 text-sm font-semibold transition {{ $reclamationsEnabled ? 'bg-rose-600 text-white hover:bg-rose-700' : 'bg-emerald-600 text-white hover:bg-emerald-700' }}">
+                                {{ $reclamationsEnabled ? 'Disable Reclamations' : 'Enable Reclamations' }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
                 <div
                     class="xl:col-span-2 rounded-3xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
