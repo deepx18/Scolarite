@@ -39,11 +39,16 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout')->middleware('auth:admin');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:admin');
     Route::post('/reclamations', [AdminController::class, 'toggleReclamations'])->name('admin.reclamations.toggle')->middleware('auth:admin');
+    Route::get('/students', [AdminController::class, 'studentsIndex'])->name('admin.students.index')->middleware('auth:admin');
     Route::get('/students/create', [AdminController::class, 'createStudent'])->name('admin.students.create')->middleware('auth:admin');
     Route::post('/students', [AdminController::class, 'storeStudent'])->name('admin.students.store')->middleware('auth:admin');
     // Bulk upload routes
     Route::get('/students/bulk-upload', [AdminController::class, 'bulkUploadForm'])->name('admin.students.bulkUpload')->middleware('auth:admin');
     Route::post('/students/bulk-upload', [AdminController::class, 'bulkUploadStore'])->name('admin.students.bulkUpload.store')->middleware('auth:admin');
+    Route::get('/students/{student}', [AdminController::class, 'showStudent'])->name('admin.students.show')->middleware('auth:admin');
+    Route::get('/students/{student}/edit', [AdminController::class, 'editStudent'])->name('admin.students.edit')->middleware('auth:admin');
+    Route::put('/students/{student}', [AdminController::class, 'updateStudent'])->name('admin.students.update')->middleware('auth:admin');
+    Route::delete('/students/{student}', [AdminController::class, 'destroyStudent'])->name('admin.students.destroy')->middleware('auth:admin');
     Route::middleware(['auth.admin', 'super.admin'])->name('admin.manage.')->group(function () {
         Route::resource('manage-admins', SuperAdminController::class)
             ->parameters(['manage-admins' => 'admin'])

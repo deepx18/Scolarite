@@ -56,6 +56,7 @@ return [
         'search_placeholder' => 'Search by student name, Apogee number...',
         'type_filter_placeholder' => 'Request type',
         'status_filter_placeholder' => 'Status',
+        'search' => 'Search',
         'export' => 'Export',
         'bulk_action' => 'Bulk action',
         'manage_administrators' => 'Manage Administrators',

@@ -34,7 +34,7 @@
             <span class="font-medium">{{ __('admin.all_requests') }}</span>
         </a>
         <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150"
-            href="#">
+            href="{{ route('admin.students.index') }}">
             <span class="material-symbols-outlined">group</span>
             <span class="font-medium">{{ __('admin.student_directory') }}</span>
         </a>

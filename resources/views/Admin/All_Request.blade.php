@@ -134,11 +134,9 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Status</label>
                     <select name="status" id="statusSelect" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
-                        <option value="Pending">Pending</option>
-                        <option value="In Review">In Review</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="Archived">Archived</option>
+                        @foreach(\App\Models\Request::STATUSES as $key => $label)
+                            <option value="{{ $key }}">{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
 

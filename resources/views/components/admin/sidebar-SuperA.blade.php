@@ -22,7 +22,7 @@
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
             <span class="font-medium">All Requests</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'directory' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="#">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150 {{ $active === 'directory' ? 'bg-white text-blue-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-blue-800 hover:bg-slate-200/50' }}" href="{{ route('admin.students.index') }}">
             <span class="material-symbols-outlined">group</span>
             <span class="font-medium">Student Directory</span>
         </a>

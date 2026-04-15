@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 
 class AdminController extends Controller
@@ -20,11 +21,7 @@ class AdminController extends Controller
             ->pluck('type');
         // dd($requestTypes);
 
-        $statuses = \App\Models\Request::query()
-            ->select('status')
-            ->distinct()
-            ->orderBy('status')
-            ->pluck('status');
+        $statuses = \App\Models\Request::STATUSES;
 
         $query = \App\Models\Request::with('student')
             ->when($request->type, function ($query, $type) {
@@ -82,6 +79,47 @@ class AdminController extends Controller
         $requests = $query->paginate(10)->withQueryString();
 
         return view('Admin.All_Request', compact('requests', 'requestTypes', 'statuses'));
+    }
+
+    public function studentsIndex(Request $request)
+    {
+        $departments = Student::query()
+            ->select('department')
+            ->distinct()
+            ->orderBy('department')
+            ->pluck('department');
+
+        $statuses = Student::query()
+            ->select('status')
+            ->distinct()
+            ->orderBy('status')
+            ->pluck('status');
+
+        $query = Student::query()
+            ->when($request->department, function ($query, $department) {
+                $query->where('department', $department);
+            })
+            ->when($request->status, function ($query, $status) {
+                $query->where('status', $status);
+            })
+            ->when($request->search, function ($query, $search) {
+                $terms = preg_split('/\s+/', trim($search));
+
+                foreach ($terms as $term) {
+                    $query->where(function ($studentQuery) use ($term) {
+                        $studentQuery->where('apogee_number', 'like', "%{$term}%")
+                            ->orWhere('cne', 'like', "%{$term}%")
+                            ->orWhere('first_name', 'like', "%{$term}%")
+                            ->orWhere('last_name', 'like', "%{$term}%")
+                            ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$term}%"]);
+                    });
+                }
+            })
+            ->latest();
+
+        $students = $query->paginate(10)->withQueryString();
+
+        return view('Admin.students.index', compact('students', 'departments', 'statuses'));
     }
 
     public function bulkUploadForm()
@@ -164,7 +202,7 @@ class AdminController extends Controller
     public function update(Request $httpRequest, \App\Models\Request $request)
     {
         $validated = $httpRequest->validate([
-            'status' => 'required|in:Pending,In Review,Approved,Rejected,Archived',
+            'status' => ['required', Rule::in(array_keys(\App\Models\Request::STATUSES))],
         ]);
 
         $request->update($validated);
@@ -249,5 +287,48 @@ class AdminController extends Controller
         Student::create($validated);
 
         return redirect()->route('admin.students.create')->with('success', 'Student added successfully.');
+    }
+
+    public function showStudent(Student $student)
+    {
+        return view('Admin.students.show', compact('student'));
+    }
+
+    public function editStudent(Student $student)
+    {
+        return view('Admin.students.edit', compact('student'));
+    }
+
+    public function updateStudent(Request $request, Student $student)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('students')->ignore($student->id)],
+            'apogee_number' => ['required', 'string', 'max:255', \Illuminate\Validation\Rule::unique('students')->ignore($student->id)],
+            'cne' => ['nullable', 'string', 'max:255', \Illuminate\Validation\Rule::unique('students')->ignore($student->id)],
+            'cin' => ['nullable', 'string', 'max:255', \Illuminate\Validation\Rule::unique('students')->ignore($student->id)],
+            'date_of_birth' => 'required|date',
+            'birth_city' => 'nullable|string|max:255',
+            'nationality' => 'nullable|string|max:255',
+            'gender' => 'nullable|in:M,F',
+            'department' => 'required|string|max:255',
+            'study_level' => 'nullable|string|max:255',
+            'specialization' => 'nullable|string|max:255',
+            'bac_year' => 'nullable|string|max:4',
+            'province' => 'nullable|string|max:255',
+            'academic_track' => 'nullable|string|max:255',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $student->update($validated);
+
+        return redirect()->route('admin.students.index')->with('success', 'Student updated successfully.');
+    }
+
+    public function destroyStudent(Student $student)
+    {
+        $student->delete();
+        return redirect()->route('admin.students.index')->with('success', 'Student deleted successfully.');
     }
 }
