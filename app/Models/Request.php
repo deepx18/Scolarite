@@ -29,6 +29,11 @@ class Request extends Model
         'appeal' => 'Grade Appeal',
         'extension' => 'Assignment Extension',
         'accommodation' => 'Academic Accommodation',
+        'enrollment_certificate' => 'Enrollment Certificate',
+        'diploma' => 'Diploma Request',
+        'student_card' => 'Student ID Card',
+        'financial_aid' => 'Financial Aid',
+        'other' => 'Other Request',
     ];
 
     // Status constants
@@ -107,6 +112,26 @@ class Request extends Model
             'accommodation' => [
                 'accommodation_type' => 'required|string|max:255',
                 'supporting_documentation' => 'required|boolean',
+                'description' => 'required|string|max:1000',
+            ],
+            'enrollment_certificate' => [
+                'delivery_method' => 'required|in:email,pickup,mail',
+                'number_of_copies' => 'required|integer|min:1|max:10',
+            ],
+            'diploma' => [
+                'delivery_method' => 'required|in:email,pickup,mail',
+                'number_of_copies' => 'required|integer|min:1|max:5',
+            ],
+            'student_card' => [
+                'card_type' => 'required|in:new,replacement',
+                'reason' => 'required|string|max:1000',
+            ],
+            'financial_aid' => [
+                'aid_type' => 'required|in:scholarship,loan,bursary',
+                'reason' => 'required|string|max:1000',
+            ],
+            'other' => [
+                'subject' => 'required|string|max:255',
                 'description' => 'required|string|max:1000',
             ],
             default => [],

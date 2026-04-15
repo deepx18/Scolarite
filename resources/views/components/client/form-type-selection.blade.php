@@ -39,6 +39,21 @@
                                 @case('accommodation')
                                     Request academic accommodations.
                                     @break
+                                @case('enrollment_certificate')
+                                    Request proof of enrollment to share with third parties.
+                                    @break
+                                @case('diploma')
+                                    Request your diploma or degree document.
+                                    @break
+                                @case('student_card')
+                                    Request or replace your student ID card.
+                                    @break
+                                @case('financial_aid')
+                                    Apply for financial aid, scholarship, or loan support.
+                                    @break
+                                @case('other')
+                                    Submit a request not covered by the other categories.
+                                    @break
                             @endswitch
                         </span>
                     </div>
