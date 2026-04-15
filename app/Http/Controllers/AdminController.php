@@ -228,7 +228,6 @@ class AdminController extends Controller
             ->selectRaw('type, COUNT(*) as total')
             ->groupBy('type')
             ->orderByDesc('total')
-            ->take(4)
             ->get()
             ->map(function ($item) use ($totalRequests) {
                 return [
