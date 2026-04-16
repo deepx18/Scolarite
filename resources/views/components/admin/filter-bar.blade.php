@@ -26,9 +26,9 @@
         <select name="status" onchange="this.form.submit()"
             class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none">
             <option value="">{{ __('admin.status_filter_placeholder') }}</option>
-            @foreach ($statuses as $status)
-                <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
-                    {{ $status }}
+            @foreach ($statuses as $key => $label)
+                <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>
+                    {{ $label }}
                 </option>
             @endforeach
         </select>

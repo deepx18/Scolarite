@@ -15,18 +15,61 @@
                 class="{{ request()->routeIs('admin.requests.index') ? 'text-blue-900 dark:text-blue-100 font-bold border-b-2 border-blue-900 px-3 py-2 cursor-pointer active:scale-95 duration-200' : 'text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg cursor-pointer active:scale-95 duration-200' }}">All
                 Requests</a>
             <a class="text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-2 rounded-lg cursor-pointer active:scale-95 duration-200"
-                href="#">Student Directory</a>
+                href="{{ route('admin.students.index') }}">Student Directory</a>
         </div> --}}
     </div>
     <div class="flex items-center gap-4">
-        <div class="relative group">
+        {{-- <div class="relative group">
             <span
                 class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 rounded-full cursor-pointer">notifications</span>
             <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
         </div>
         <span
-            class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 rounded-full cursor-pointer">help_outline</span>
-        <img alt="Administrator profile avatar" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWetbp6S6sqL_wGOfexx2Oyo3PYafsuPRxYBGpDJ3nlakPfP366EzW8jmBT_PYIMJzL7sYT1Fe_JMA4f57G8JxR2TMNOf_mlTHkU_Q8b_LdPiOLLIHjxg67MverjuwwFHkcaGUrEE97i9VPWBuGVoCk-MpSJFLplCja9Gr3sF4zj72O0TTp4kjrAU5Ex95h225z8kAaQh4IH33WI1QoWt-F7iiGokym_1LU1lYmeVpXwsQnYvE6nDnhMvL3iWEI05noKQVT7BNT00" />
+            class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 rounded-full cursor-pointer">help_outline</span> --}}
+        <div class="relative">
+            <button id="adminProfileButton" type="button"
+                class="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 hover:shadow-sm transition"
+                onclick="toggleAdminProfileMenu(event)">
+                <img alt="Administrator profile avatar"
+                    class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-fixed"
+                    src="https://ui-avatars.com/api/?name={{ urlencode($admin->name ?? 'Admin') }}&background=002045&color=ffffff&size=128" />
+                <div class="hidden md:flex flex-col text-left">
+                    <span class="text-sm font-semibold text-slate-900">{{ $admin->name ?? 'Administrator' }}</span>
+                    <span class="text-xs text-slate-500">{{ $role === 'super_admin' ? 'Super Admin' : 'Administrator' }}</span>
+                </div>
+                <span class="material-symbols-outlined text-slate-400">expand_more</span>
+            </button>
+
+            <div id="adminProfileMenu"
+                class="hidden absolute right-0 mt-2 w-60 overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-xl">
+                <div class="p-4 border-b border-slate-200">
+                    <p class="text-sm font-semibold text-slate-900">{{ $admin->name ?? 'Administrator' }}</p>
+                    <p class="text-xs text-slate-500">{{ $admin->email }}</p>
+                </div>
+                <a href="{{ route('admin.profile') }}"
+                    class="block px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">My Profile</a>
+                <div class="border-t border-slate-100"></div>
+                <form method="POST" action="{{ route('admin.logout') }}" class="m-0">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left px-4 py-3 text-sm font-semibold text-rose-600 hover:bg-rose-50">Log
+                        Out</button>
+                </form>
+            </div>
+        </div>
     </div>
 </nav>
+
+<script>
+    function toggleAdminProfileMenu(event) {
+        event.stopPropagation();
+        document.getElementById('adminProfileMenu').classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', function () {
+        const menu = document.getElementById('adminProfileMenu');
+        if (menu && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>

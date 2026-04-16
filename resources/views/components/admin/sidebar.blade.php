@@ -33,8 +33,8 @@
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
             <span class="font-medium">{{ __('admin.all_requests') }}</span>
         </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150"
-            href="#">
+        <a href="{{ route('admin.students.index') }}"
+            class="{{ request()->routeIs('admin.students.*') ? 'flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-900 dark:text-white shadow-sm rounded-lg font-semibold ease-in-out duration-150' : 'flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150' }}">
             <span class="material-symbols-outlined">group</span>
             <span class="font-medium">{{ __('admin.student_directory') }}</span>
         </a>
@@ -47,20 +47,10 @@
         @endif
         <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150"
             href="#">
-            <span class="material-symbols-outlined">analytics</span>
-            <span class="font-medium">{{ __('admin.reports') }}</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150"
-            href="#">
             <span class="material-symbols-outlined">settings</span>
             <span class="font-medium">{{ __('admin.system_settings') }}</span>
         </a>
     </nav>
-    <button
-        class="mx-4 my-6 py-3 px-4 bg-linear-to-br from-primary to-primary-container text-on-primary rounded-lg font-bold text-sm shadow-lg flex items-center justify-center gap-2 active:scale-95">
-        <span class="material-symbols-outlined text-sm">add</span>
-        {{ __('admin.new_report') }}
-    </button>
     <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-1">
         <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all"
             href="#">

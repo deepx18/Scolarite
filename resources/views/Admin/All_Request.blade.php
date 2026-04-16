@@ -18,9 +18,6 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-low/50">
-                        <th class="p-5 w-12">
-                            <input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-                        </th>
                         <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Student Name</th>
                         <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Request Type</th>
                         <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Submission Date</th>
@@ -31,9 +28,6 @@
                 <tbody class="divide-y divide-surface-container-low">
                     @foreach ($requests as $request)
                         <tr class="hover:bg-surface-container-low/30 transition-colors">
-                            <td class="p-5">
-                                <input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
-                            </td>
                             <td class="p-5">
                                 <div class="flex items-center gap-3">
                                     <div class="w-9 h-9 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed text-xs">
@@ -134,11 +128,9 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Status</label>
                     <select name="status" id="statusSelect" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
-                        <option value="Pending">Pending</option>
-                        <option value="In Review">In Review</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="Archived">Archived</option>
+                        @foreach(\App\Models\Request::STATUSES as $key => $label)
+                            <option value="{{ $key }}">{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
 
