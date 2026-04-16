@@ -109,8 +109,8 @@
                                         </div>
 
                                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
-                                                <a href="{{ route('admin.dashboard') }}"
-                                                        class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200">{{ __('admin.back_to_dashboard') }}</a>
+                                                <a href="{{ route('admin.students.index') }}"
+                                                        class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200">{{ __('admin.back_to_students') }}</a>
                                                 <button type="submit"
                                                         class="inline-flex items-center justify-center rounded-full bg-blue-950 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-900">{{ __('admin.save_student') }}</button>
                                         </div>

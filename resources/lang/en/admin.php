@@ -40,6 +40,7 @@ return [
         'add_student_description' => 'Quickly create a student record.',
         'bulk_upload_description' => 'Import multiple records in one flow.',
         'back_to_dashboard' => 'Back to dashboard',
+        'back_to_students' => 'Back to student directory',
         'view_history' => 'View history',
         'subject' => 'Subject',
         'message' => 'Message',

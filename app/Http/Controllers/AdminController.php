@@ -142,8 +142,10 @@ class AdminController extends Controller
         }
 
         $header = fgetcsv($handle);
-        $requiredColumns = ['first_name', 'last_name', 'email', 'apogee_number', 'cne', 'date_of_birth', 'department', 'status'];
-        $optionalColumns = ['cin', 'birth_city', 'nationality', 'gender', 'study_level', 'specialization', 'bac_year', 'province', 'academic_track'];
+        $requiredColumns = [
+            'first_name', 'last_name', 'email', 'apogee_number', 'cne', 'date_of_birth', 'department', 'status',
+            'cin', 'birth_city', 'nationality', 'gender', 'study_level', 'specialization', 'bac_year', 'province', 'academic_track',
+        ];
 
         $normalizedHeader = array_map(function ($column) {
             return Str::of($column)->trim()->lower()->replace(' ', '_')->__toString();
@@ -166,10 +168,17 @@ class AdminController extends Controller
             }
 
             $data = array_combine($normalizedHeader, $row);
-            $allowedColumns = array_merge($requiredColumns, $optionalColumns);
-            $data = array_intersect_key($data, array_flip($allowedColumns));
+            $data = array_intersect_key($data, array_flip($requiredColumns));
 
-            if (empty($data['email']) || empty($data['apogee_number']) || empty($data['first_name']) || empty($data['last_name'])) {
+            $missingRequired = false;
+            foreach ($requiredColumns as $column) {
+                if (!isset($data[$column]) || trim((string) $data[$column]) === '') {
+                    $missingRequired = true;
+                    break;
+                }
+            }
+
+            if ($missingRequired) {
                 $skipped++;
                 continue;
             }
@@ -237,6 +246,26 @@ class AdminController extends Controller
                 ];
             });
 
+        // New data for pending actions
+        $pendingActions = \App\Models\Request::with('student')
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'asc')
+            ->take(3)
+            ->get();
+
+        // New data for status distribution
+        $statusDistribution = \App\Models\Request::query()
+            ->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->get()
+            ->map(function ($item) use ($totalRequests) {
+                return [
+                    'status' => $item->status,
+                    'count' => $item->count,
+                    'percent' => $totalRequests ? round(($item->count / $totalRequests) * 100) : 0,
+                ];
+            });
+
         // Check reclamations status from Redis cache
         $reclamationsEnabled = Cache::store(config('cache.default'))->get('reclamations_enabled', true) ?? true;
 
@@ -247,6 +276,8 @@ class AdminController extends Controller
             'rejected',
             'recentRequests',
             'typeVolumes',
+            'pendingActions',
+            'statusDistribution',
             'reclamationsEnabled' // Pass the reclamations status to the view
         ));
     }

@@ -148,25 +148,44 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                <a href="{{ route('admin.students.create') }}"
-                    class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800 text-left transition hover:-translate-y-0.5 block">
-                    <div
-                        class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-950 text-white shadow-sm">
-                        <span class="material-symbols-outlined">person_add</span>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <!-- Pending Actions Widget -->
+                <div class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+                    <h2 class="text-lg font-semibold text-blue-950 dark:text-white" style="font-family: 'Manrope', sans-serif;">Actions prioritaires</h2>
+                    <p class="mt-1 text-sm text-slate-500">Demandes en attente les plus anciennes</p>
+                    <div class="mt-4 space-y-4">
+                        @forelse($pendingActions as $action)
+                            <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                <div>
+                                    <p class="font-semibold text-slate-900 dark:text-white">{{ $action->student->first_name }} {{ $action->student->last_name }}</p>
+                                    <p class="text-sm text-slate-500">{{ $action->type }}</p>
+                                </div>
+                                <span class="inline-flex items-center rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">Retardé</span>
+                            </div>
+                        @empty
+                            <p class="text-sm text-slate-500">Aucune demande en attente</p>
+                        @endforelse
                     </div>
-                    <p class="mt-4 font-semibold text-slate-900 dark:text-white">{{ __('admin.add_student') }}</p>
-                    <p class="mt-2 text-sm text-slate-500">{{ __('admin.add_student_description') }}</p>
-                </a>
-                <a href="{{ route('admin.students.bulkUpload') }}"
-                    class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800 text-left transition hover:-translate-y-0.5 block">
-                    <div
-                        class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 shadow-sm">
-                        <span class="material-symbols-outlined">upload_file</span>
+                </div>
+
+                <!-- Status Distribution Widget -->
+                <div class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+                    <h2 class="text-lg font-semibold text-blue-950 dark:text-white" style="font-family: 'Manrope', sans-serif;">Répartition des demandes</h2>
+                    <p class="mt-1 text-sm text-slate-500">Distribution par statut</p>
+                    <div class="mt-4 space-y-4">
+                        @foreach($statusDistribution as $dist)
+                            <div>
+                                <div class="flex items-center justify-between text-sm mb-2">
+                                    <span class="capitalize">{{ $dist['status'] }}</span>
+                                    <span class="font-semibold text-slate-900 dark:text-white">{{ $dist['percent'] }}%</span>
+                                </div>
+                                <div class="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                                    <div class="h-full rounded-full" style="width: {{ $dist['percent'] }}%; background-color: #002045;"></div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <p class="mt-4 font-semibold text-slate-900 dark:text-white">{{ __('admin.bulk_upload') }}</p>
-                    <p class="mt-2 text-sm text-slate-500">{{ __('admin.bulk_upload_description') }}</p>
-                </a>
+                </div>
             </div>
         </div>
 
