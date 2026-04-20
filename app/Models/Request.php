@@ -15,6 +15,7 @@ class Request extends Model
         'type',
         'status',
         'comment',
+        'admin_comment',
         'details',
         'submitted_at',
         'reviewed_at',

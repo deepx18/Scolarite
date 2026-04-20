@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Request as ModelsRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -205,6 +206,11 @@ class AdminController extends Controller
     public function show(\App\Models\Request $request)
     {
         $request->load('student');
+        if ($request->status === "pending") {
+            $request->status = "in_review";
+            $request->save();
+        }
+
         return view('Admin.Request_Detail', compact('request'));
     }
 
