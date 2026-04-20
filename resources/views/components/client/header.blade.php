@@ -3,7 +3,7 @@
     <div class="flex items-center space-x-6">
         <h1 class="text-xl font-bold text-blue-900 dark:text-blue-100 font-manrope tracking-tight">{{ config('app.name', 'Scholarly Portal') }}</h1>
         <div class="hidden md:flex items-center space-x-6 border-l pl-6 border-slate-200/20 dark:border-slate-800/20">
-            <a class="text-slate-500 dark:text-slate-400 font-manrope font-semibold text-sm hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg {{ request()->routeIs('dashboard') ? 'text-blue-900 dark:text-blue-100 border-b-2 border-blue-900' : '' }}" href="{{ route('dashboard') }}">Home</a>
+            <a class="text-slate-500 dark:text-slate-400 font-manrope font-semibold text-sm hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg {{ request()->routeIs('dashboard') ? 'text-blue-900 dark:text-blue-100 border-b-2 border-blue-900' : '' }}" href="#">Home</a>
             <a class="text-slate-500 dark:text-slate-400 font-manrope font-semibold text-sm hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg {{ request()->routeIs('requests.*') ? 'text-blue-900 dark:text-blue-100 border-b-2 border-blue-900' : '' }}" href="{{ route('requests.index') }}">Requests</a>
             <a class="text-slate-500 dark:text-slate-400 font-manrope font-semibold text-sm hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg" href="#">Documentation</a>
         </div>

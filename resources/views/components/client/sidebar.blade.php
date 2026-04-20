@@ -12,7 +12,7 @@
         </div>
     </div>
     <nav class="flex-1 space-y-1">
-        <a class="flex items-center px-4 py-3 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 {{ request()->routeIs('dashboard') ? 'bg-white dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-bold shadow-sm translate-x-1' : '' }}" href="{{ route('dashboard') }}">
+        <a class="flex items-center px-4 py-3 rounded-xl transition-all text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 {{ request()->routeIs('dashboard') ? 'bg-white dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-bold shadow-sm translate-x-1' : '' }}" href="#">
             <span class="material-symbols-outlined mr-3">dashboard</span>
             <span class="font-manrope text-sm font-medium">Dashboard</span>
         </a>

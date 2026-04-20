@@ -53,6 +53,10 @@
                             <p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Request information</p>
                             <div class="rounded-3xl bg-slate-50 p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="space-y-2">
+                                    <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Reference</p>
+                                    <p class="font-semibold text-slate-900">{{ $request->reference }}</p>
+                                </div>
+                                <div class="space-y-2">
                                     <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Type</p>
                                     <p class="font-semibold text-slate-900">{{ $request->typeLabel() }}</p>
                                 </div>
@@ -81,7 +85,7 @@
                                         @endforeach
                                     </ul>
                                 @else
-                                    <p class="text-sm text-slate-700 leading-relaxed">{{ $request->details ?? 'No additional details were submitted for this request.' }}</p>
+                                    <p class="text-sm text-slate-700 leading-relaxed">{{ 'No additional details were submitted for this request.' }}</p>
                                 @endif
                             </div>
                         </div>
