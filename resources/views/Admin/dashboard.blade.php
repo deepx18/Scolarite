@@ -12,8 +12,11 @@
                     <p class="mt-3 max-w-2xl text-sm text-slate-500">{{ __('admin.welcome_summary') }}</p>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('admin.requests.index', ['export' => 1]) }}"
-                        class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">{{ __('admin.export_data') }}</a>
+                    <button type="button" onclick="openExportModal()"
+                        class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base">download</span>
+                        {{ __('admin.export_data') }}
+                    </button>
                     <a href="{{ route('admin.requests.index') }}"
                         class="rounded-full bg-blue-950 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900">{{ __('admin.custom_filters') }}</a>
                 </div>
@@ -190,4 +193,6 @@
         </div>
 
     </main>
+
+    <x-admin.export-students-modal />
 </x-admin.layout>

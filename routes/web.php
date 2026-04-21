@@ -41,6 +41,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile')->middleware('auth:admin');
     Route::post('/reclamations', [AdminController::class, 'toggleReclamations'])->name('admin.reclamations.toggle')->middleware('auth:admin');
     Route::get('/students', [AdminController::class, 'studentsIndex'])->name('admin.students.index')->middleware('auth:admin');
+    Route::get('/students/export', [AdminController::class, 'exportStudents'])->name('admin.students.export')->middleware('auth:admin');
     Route::get('/students/create', [AdminController::class, 'createStudent'])->name('admin.students.create')->middleware('auth:admin');
     Route::post('/students', [AdminController::class, 'storeStudent'])->name('admin.students.store')->middleware('auth:admin');
     // Bulk upload routes

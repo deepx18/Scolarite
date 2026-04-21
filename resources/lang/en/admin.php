@@ -87,4 +87,12 @@ return [
         'csv_file_description' => 'The file must contain the columns: first_name, last_name, email, apogee_number, cne, date_of_birth, department, status.',
         'no_file_selected' => 'No file selected',
         'choose_file' => 'Choose file',
+        'export_students' => 'Export Students',
+        'select_export_options' => 'Select your export preferences',
+        'study_level' => 'Study Level',
+        'all_levels' => 'All levels',
+        'all' => 'All',
+        'export_format' => 'Export Format',
+        'preferred' => '(Preferred)',
+        'cancel' => 'Cancel',
 ];

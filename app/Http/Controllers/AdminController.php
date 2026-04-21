@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Request as ModelsRequest;
 use App\Models\Student;
+use App\Exports\StudentExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -144,8 +146,23 @@ class AdminController extends Controller
 
         $header = fgetcsv($handle);
         $requiredColumns = [
-            'first_name', 'last_name', 'email', 'apogee_number', 'cne', 'date_of_birth', 'department', 'status',
-            'cin', 'birth_city', 'nationality', 'gender', 'study_level', 'specialization', 'bac_year', 'province', 'academic_track',
+            'first_name',
+            'last_name',
+            'email',
+            'apogee_number',
+            'cne',
+            'date_of_birth',
+            'department',
+            'status',
+            'cin',
+            'birth_city',
+            'nationality',
+            'gender',
+            'study_level',
+            'specialization',
+            'bac_year',
+            'province',
+            'academic_track',
         ];
 
         $normalizedHeader = array_map(function ($column) {
@@ -276,7 +293,7 @@ class AdminController extends Controller
         // Check reclamations status from Redis cache
         $reclamationsEnabled = Cache::store(config('cache.default'))->get('reclamations_enabled', true) ?? true;
         $typeNames = \App\Models\Request::TYPES;
-        $statusNames = \App\Models\Request::STATUSES; 
+        $statusNames = \App\Models\Request::STATUSES;
 
         return view('Admin.dashboard', compact(
             'totalRequests',
@@ -377,5 +394,35 @@ class AdminController extends Controller
     {
         $student->delete();
         return redirect()->route('admin.students.index')->with('success', 'Student deleted successfully.');
+    }
+
+    public function exportStudents(Request $request)
+    {
+        $format = $request->get('format', 'xlsx');
+        $studyLevel = $request->get('study_level', 'all');
+        $status = $request->get('status', 'all');
+        $department = $request->get('department', 'all');
+
+        // Prepare filters
+        $filters = [
+            'study_level' => $studyLevel,
+            'status' => $status,
+            'department' => $department,
+        ];
+
+        $filename = 'students-' . now()->format('Ymd-His');
+
+        if ($format === 'xlsx') {
+            return Excel::download(
+                new StudentExport($filters),
+                $filename . '.xlsx'
+            );
+        } else {
+            // CSV export
+            return Excel::download(
+                new StudentExport($filters),
+                $filename . '.csv'
+            );
+        }
     }
 }
