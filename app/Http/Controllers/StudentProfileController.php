@@ -35,7 +35,7 @@ class StudentProfileController extends Controller
         auth()->user()->update($validated);
 
         return redirect()->route('profile.show')
-            ->with('success', 'Profile updated successfully!');
+            ->with('success', __('admin.profile_updated'));
     }
 
     /**
@@ -61,6 +61,6 @@ class StudentProfileController extends Controller
         ]);
 
         return redirect()->route('profile.show')
-            ->with('success', 'Password changed successfully!');
+            ->with('success', __('admin.password_changed'));
     }
 }

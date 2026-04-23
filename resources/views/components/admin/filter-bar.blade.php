@@ -14,7 +14,7 @@
             <option value="">{{ __('admin.type_filter_placeholder') }}</option>
             @foreach ($requestTypes as $type)
                 <option value="{{ $type }}" {{ request('type') === $type ? 'selected' : '' }}>
-                    {{ $type }}
+                    {{ __('admin.request_types.' . $type) }}
                 </option>
             @endforeach
         </select>
@@ -28,7 +28,7 @@
             <option value="">{{ __('admin.status_filter_placeholder') }}</option>
             @foreach ($statuses as $key => $label)
                 <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>
-                    {{ $label }}
+                    {{ __('admin.statuses.' . $key) }}
                 </option>
             @endforeach
         </select>

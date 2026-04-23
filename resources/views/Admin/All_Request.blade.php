@@ -7,6 +7,20 @@
     <main class="lg:ml-64 pt-20 sm:pt-24 px-4 sm:px-8 pb-12">
         <x-admin.header />
 
+        @if(session('success') || session('error'))
+            <div class="rounded-3xl border p-5 shadow-sm text-sm font-medium my-4">
+                @if(session('success'))
+                    <div class="text-emerald-700 bg-emerald-100 border border-emerald-200 rounded-2xl px-4 py-3">
+                        {{ session('success') }}
+                    </div>
+                @else
+                    <div class="text-rose-700 bg-rose-100 border border-rose-200 rounded-2xl px-4 py-3">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        @endif
+
         <!-- Bento Filter Bar -->
         <x-admin.filter-bar 
             :requestTypes="$requestTypes"
@@ -42,7 +56,7 @@
                             <td class="p-3 sm:p-5 hidden sm:table-cell">
                                 <div class="flex items-center gap-2 text-xs sm:text-sm font-medium text-on-surface whitespace-nowrap">
                                     <span class="material-symbols-outlined text-primary text-lg hidden sm:inline">description</span>
-                                    {{ $request->type }}
+                                    {{ $request->typeLabel() }}
                                 </div>
                             </td>
                             <td class="p-3 sm:p-5 hidden md:table-cell">
@@ -62,7 +76,7 @@
                                 @endphp
                                 <span class="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium {{ $colors[0] }} {{ $colors[1] }} whitespace-nowrap">
                                     <span class="w-1.5 h-1.5 rounded-full {{ $colors[2] }} mr-1"></span>
-                                    {{ $statusLabel }}
+                                    {{ $request->statusLabel() }}
                                 </span>
                             </td>
                             <td class="p-3 sm:p-5 text-right">
@@ -76,7 +90,7 @@
                                         <form action="{{ route('admin.requests.destroy', $request->id) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('admin.modals.delete_confirm') }}');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition flex-shrink-0" title="Delete">
+                                        <button type="submit" class="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition flex-shrink-0" title="{{ __('admin.actions.delete') }}">
                                             <span class="material-symbols-outlined text-sm sm:text-base">delete</span>
                                         </button>
                                     </form>
@@ -128,15 +142,14 @@
                     <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('admin.modals.status') }}</label>
                     <select name="status" id="statusSelect" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
                         @foreach(\App\Models\Request::STATUSES as $key => $label)
-                            <option value="{{ $key }}">{{ $label }}</option>
+                            <option value="{{ $key }}">{{ __('admin.statuses.' . $key) }}</option>
                         @endforeach
                     </select>
                 </div>
 
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-2">{{ __('admin.modals.comment') }}</label>
-                <textarea name="admin_comment"  rows="4" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="Add comment about this status update...">
-                </textarea>
+                <textarea name="admin_comment" rows="4" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="{{ __('admin.modals.comment_placeholder') }}"></textarea>
             </div>
 
                 <div class="flex gap-3 pt-6">

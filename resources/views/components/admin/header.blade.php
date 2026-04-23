@@ -2,12 +2,12 @@
 <header class="flex justify-between items-end mb-12">
     <div>
         <nav class="flex items-center gap-2 text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
-            <span>Admin</span>
+            <span>{{ __('admin.breadcrumb.admin') }}</span>
             <span class="material-symbols-outlined text-[10px]">chevron_right</span>
-            <span class="text-primary">All Requests</span>
+            <span class="text-primary">{{ __('admin.all_requests') }}</span>
         </nav>
-        <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Administrative Requests</h1>
-        <p class="text-on-surface-variant mt-2 max-w-md">Manage academic submissions, transcript requests, and enrollment updates from the central student body.</p>
+        <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">{{ __('admin.administrative_requests') }}</h1>
+        <p class="text-on-surface-variant mt-2 max-w-md">{{ __('admin.administrative_requests_description') }}</p>
     </div>
     <div class="flex gap-4">
         <div class="flex -space-x-2">

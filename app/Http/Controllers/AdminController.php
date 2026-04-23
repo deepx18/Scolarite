@@ -239,7 +239,9 @@ class AdminController extends Controller
 
         fclose($handle);
 
-        return redirect()->route('admin.students.bulkUpload')->with('success', "Import terminé : {$created} étudiants ajoutés, {$skipped} ignorés.")->with('errors_list', $errors);
+        return redirect()->route('admin.students.bulkUpload')
+            ->with('success', __('admin.import_complete', ['created' => $created, 'skipped' => $skipped]))
+            ->with('errors_list', $errors);
     }
 
     public function show(\App\Models\Request $request)
@@ -262,13 +264,13 @@ class AdminController extends Controller
 
         $request->update($validated);
 
-        return back()->with('success', 'Request updated successfully.');
+        return back()->with('success', __('admin.request_updated'));
     }
 
     public function destroy(\App\Models\Request $request)
     {
         $request->delete();
-        return redirect()->route('admin.requests.index')->with('success', 'Request deleted successfully.');
+        return redirect()->route('admin.requests.index')->with('success', __('admin.request_deleted'));
     }
 
     public function dashboard()
@@ -314,8 +316,18 @@ class AdminController extends Controller
 
         // Check reclamations status from Redis cache
         $reclamationsEnabled = Cache::store(config('cache.default'))->get('reclamations_enabled', true) ?? true;
-        $typeNames = \App\Models\Request::TYPES;
-        $statusNames = \App\Models\Request::STATUSES;
+        // Build translated maps for types and statuses so UI respects current locale
+        $typeNames = [];
+        foreach (\App\Models\Request::TYPES as $key => $label) {
+            $translated = __('admin.request_types.' . $key);
+            $typeNames[$key] = $translated === 'admin.request_types.' . $key ? $label : $translated;
+        }
+
+        $statusNames = [];
+        foreach (\App\Models\Request::STATUSES as $key => $label) {
+            $translated = __('admin.statuses.' . $key);
+            $statusNames[$key] = $translated === 'admin.statuses.' . $key ? $label : $translated;
+        }
 
         return view('Admin.dashboard', compact(
             'totalRequests',
@@ -349,7 +361,7 @@ class AdminController extends Controller
         Cache::store(config('cache.default'))->forever('reclamations_enabled', $enabled);
 
         return redirect()->route('admin.dashboard')
-            ->with('success', $enabled ? 'Reclamations are now enabled.' : 'Reclamations are now disabled.');
+            ->with('success', $enabled ? __('admin.reclamations_enabled') : __('admin.reclamations_disabled'));
     }
 
     public function createStudent()
@@ -372,7 +384,7 @@ class AdminController extends Controller
 
         Student::create($validated);
 
-        return redirect()->route('admin.students.create')->with('success', 'Student added successfully.');
+        return redirect()->route('admin.students.create')->with('success', __('admin.student_added'));
     }
 
     public function showStudent(Student $student)
@@ -409,13 +421,13 @@ class AdminController extends Controller
 
         $student->update($validated);
 
-        return redirect()->route('admin.students.index')->with('success', 'Student updated successfully.');
+        return redirect()->route('admin.students.index')->with('success', __('admin.student_updated'));
     }
 
     public function destroyStudent(Student $student)
     {
         $student->delete();
-        return redirect()->route('admin.students.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('admin.students.index')->with('success', __('admin.student_deleted'));
     }
 
     public function exportStudents(Request $request)
