@@ -19,7 +19,7 @@ class RequestFactory extends Factory
     public function definition(): array
     {
         $type = fake()->randomElement(array_keys(Request::TYPES));
-        
+
         return [
             'reference' => 'REQ-' . date('Y') . '-' . str_pad(fake()->unique()->numberBetween(1, 9999), 4, '0', STR_PAD_LEFT),
             'student_id' => Student::factory(),
@@ -38,39 +38,43 @@ class RequestFactory extends Factory
     private function generateTypeDetails(string $type): array
     {
         return match ($type) {
-            'transfer' => [
-                'destination_program' => fake()->randomElement(['Computer Science', 'Business Administration', 'Engineering', 'Marketing']),
-                'reason' => fake()->sentence(),
-            ],
-            'withdrawal' => [
-                'course_code' => fake()->regexify('[A-Z]{3}\d{3}'),
-                'course_name' => fake()->sentence(3),
-                'reason' => fake()->sentence(),
-            ],
             'transcript' => [
                 'number_of_copies' => fake()->numberBetween(1, 5),
                 'delivery_method' => fake()->randomElement(['email', 'pickup', 'mail']),
             ],
-            'leave' => [
-                'leave_type' => fake()->randomElement(['medical', 'personal', 'academic']),
+
+            'enrollment_certificate' => [
+                'number_of_copies' => fake()->numberBetween(1, 5),
+                'delivery_method' => fake()->randomElement(['email', 'pickup', 'mail']),
+            ],
+
+            'baccalaureate_withdrawal' => [
+                'reason' => fake()->sentence(),
+                'expected_return_date' => fake()->dateTimeBetween('+1 week', '+1 month')->format('Y-m-d'),
+            ],
+
+            'internship_agreement' => [
+                'company_name' => fake()->company(),
                 'start_date' => fake()->date(),
                 'end_date' => fake()->date(),
-                'reason' => fake()->sentence(),
-            ],
-            'appeal' => [
-                'course_code' => fake()->regexify('[A-Z]{3}\d{3}'),
-                'grade_received' => fake()->randomElement(['D', 'D+', 'C-', 'C', 'C+']),
-                'reason' => fake()->sentence(),
-            ],
-            'extension' => [
-                'assignment_name' => fake()->sentence(3),
-                'requested_days' => fake()->numberBetween(1, 7),
-                'reason' => fake()->sentence(),
-            ],
-            'accommodation' => [
-                'accommodation_type' => fake()->randomElement(['Extended time', 'Quiet room', 'Note-taking assistance', 'Alternative format']),
-                'supporting_documentation' => fake()->boolean(),
                 'description' => fake()->sentence(),
+            ],
+
+            're_enrollment' => [
+                'academic_year' => fake()->randomElement(['2025/2026', '2026/2027']),
+                'program' => fake()->randomElement([
+                    'Computer Science',
+                    'Business Administration',
+                    'Engineering',
+                    'Marketing'
+                ]),
+            ],
+
+            'personal_info_correction' => [
+                'field_to_correct' => fake()->randomElement(['name', 'date_of_birth', 'address', 'phone']),
+                'current_value' => fake()->word(),
+                'correct_value' => fake()->word(),
+                'justification' => fake()->sentence(),
             ],
             default => [],
         };

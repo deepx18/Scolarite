@@ -23,18 +23,12 @@ class Request extends Model
 
     // Request type constants
     public const TYPES = [
-        'transfer' => 'Transfer Request',
-        'withdrawal' => 'Course Withdrawal',
-        'transcript' => 'Academic Transcript',
-        'leave' => 'Leave of Absence',
-        'appeal' => 'Grade Appeal',
-        'extension' => 'Assignment Extension',
-        'accommodation' => 'Academic Accommodation',
+        'transcript' => 'Transcript Request',
         'enrollment_certificate' => 'Enrollment Certificate',
-        'diploma' => 'Diploma Request',
-        'student_card' => 'Student ID Card',
-        'financial_aid' => 'Financial Aid',
-        'other' => 'Other Request',
+        'baccalaureate_withdrawal' => 'Baccalaureate Temporary Withdrawal',
+        'internship_agreement' => 'Internship Agreement / Authorization',
+        're_enrollment' => 'Re-enrollment',
+        'personal_info_correction' => 'Personal Information Correction',
     ];
 
     // Status constants
@@ -80,60 +74,41 @@ class Request extends Model
     public static function typeRules(string $type): array
     {
         return match ($type) {
-            'transfer' => [
-                'destination_program' => 'required|string|max:255',
-                'reason' => 'required|string|max:1000',
-            ],
-            'withdrawal' => [
-                'course_code' => 'required|string|max:20',
-                'course_name' => 'required|string|max:255',
-                'reason' => 'required|string|max:1000',
-            ],
+
             'transcript' => [
                 'number_of_copies' => 'required|integer|min:1|max:10',
                 'delivery_method' => 'required|in:email,pickup,mail',
             ],
-            'leave' => [
-                'leave_type' => 'required|in:medical,personal,academic',
+
+            'enrollment_certificate' => [
+                'number_of_copies' => 'required|integer|min:1|max:10',
+                'delivery_method' => 'required|in:email,pickup,mail',
+            ],
+
+            'baccalaureate_withdrawal' => [
+                'reason' => 'required|string|max:1000',
+                'expected_return_date' => 'required|date|after:today',
+            ],
+
+            'internship_agreement' => [
+                'company_name' => 'required|string|max:255',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
-                'reason' => 'required|string|max:1000',
-            ],
-            'appeal' => [
-                'course_code' => 'required|string|max:20',
-                'grade_received' => 'required|string|max:5',
-                'reason' => 'required|string|max:1000',
-            ],
-            'extension' => [
-                'assignment_name' => 'required|string|max:255',
-                'requested_days' => 'required|integer|min:1|max:14',
-                'reason' => 'required|string|max:1000',
-            ],
-            'accommodation' => [
-                'accommodation_type' => 'required|string|max:255',
-                'supporting_documentation' => 'required|boolean',
                 'description' => 'required|string|max:1000',
             ],
-            'enrollment_certificate' => [
-                'delivery_method' => 'required|in:email,pickup,mail',
-                'number_of_copies' => 'required|integer|min:1|max:10',
+
+            're_enrollment' => [
+                'academic_year' => 'required|string|max:20',
+                'program' => 'required|string|max:255',
             ],
-            'diploma' => [
-                'delivery_method' => 'required|in:email,pickup,mail',
-                'number_of_copies' => 'required|integer|min:1|max:5',
+
+            'personal_info_correction' => [
+                'field_to_correct' => 'required|string|max:255',
+                'current_value' => 'required|string|max:255',
+                'correct_value' => 'required|string|max:255',
+                'justification' => 'required|string|max:1000',
             ],
-            'student_card' => [
-                'card_type' => 'required|in:new,replacement',
-                'reason' => 'required|string|max:1000',
-            ],
-            'financial_aid' => [
-                'aid_type' => 'required|in:scholarship,loan,bursary',
-                'reason' => 'required|string|max:1000',
-            ],
-            'other' => [
-                'subject' => 'required|string|max:255',
-                'description' => 'required|string|max:1000',
-            ],
+
             default => [],
         };
     }

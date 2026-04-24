@@ -47,7 +47,7 @@ class LoginStudentsController extends Controller
         }
 
         return back()
-            ->withErrors(['general' => 'Invalid credentials. Please check your Apogee number/CNE and date of birth.'])
+            ->withErrors(['general' => 'Invalid credentials. Please check your E-mail and Apogee number/CNE and date of birth.'])
             ->withInput();
     }
 
