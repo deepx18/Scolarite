@@ -276,4 +276,5 @@ return [
             ],
         ],
     ],
+    'max_requests_limit_reached' => 'Vous avez atteint la limite de type de requête : :request.'
 ];

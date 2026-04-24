@@ -39,6 +39,16 @@ class Request extends Model
         'rejected' => 'Rejected',
     ];
 
+    public const CONSTRAINTS = [
+        'transcript' => [
+            'max_requests' => 1
+        ],
+        'enrollment_certificate' => [
+            'max_requests' => 2
+        ],
+        // 'baccalaureate_withdrawal' => [],
+    ];
+
     public function student()
     {
         return $this->belongsTo(Student::class);

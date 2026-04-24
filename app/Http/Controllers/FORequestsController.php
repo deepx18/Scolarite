@@ -27,9 +27,9 @@ class FORequestsController extends Controller
         // Filter by status
         if ($request->filled('status')) {
             $query->where('status', $request->input('status'));
-            }
-            
-            // Filter by type
+        }
+
+        // Filter by type
         if ($request->filled('type')) {
             $query->where('type', $request->input('type'));
         }
@@ -58,7 +58,8 @@ class FORequestsController extends Controller
         if (!$this->reclamationsEnabled()) {
             return redirect()->route('requests.index')
                 ->with('error', __('admin.reclamations_closed'))
-                ->with('step', 1);;
+                ->with('step', 1);
+            ;
         }
 
         return view('fo_requests.create', [
@@ -97,6 +98,25 @@ class FORequestsController extends Controller
 
         // Get authenticated student
         $student = auth('student')->user();
+
+        switch ($type) {
+            case 'transcript': {
+                $type_times = Request::where('student_id', $student->id)->where('type', $type)->count();
+                if ($type_times > Request::CONSTRAINTS[$type]['max_requests']) {
+                    return redirect()->route('requests.index')
+                        ->with('error', __('portal.max_requests_limit_reached', ['request' => __('admin.request_types.transcript')]));
+                }
+            }
+                break;
+            case 'enrollment_certificate': {
+                $type_times = Request::where('student_id', $student->id)->where('type', $type)->count();
+                if ($type_times > Request::CONSTRAINTS[$type]['max_requests']) {
+                    return redirect()->route('requests.index')
+                        ->with('error', __('portal.max_requests_limit_reached', ['request' => __('admin.request_types.enrollment_certificate')]));
+                }
+            }
+                break;
+        }
 
         // Create the request
         Request::create([
