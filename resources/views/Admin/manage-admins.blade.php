@@ -20,8 +20,8 @@
 
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                     <x-admin.stats-card label="{{ __('admin.total_admins') }}" value="{{ $totalAdmins ?? 0 }}" icon="admin_panel_settings" meta="{{ __('admin.stats_roster_overview') }}" />
-                    <x-admin.stats-card label="{{ __('admin.active_sessions') }}" value="{{ $activeSessions ?? 0 }}" icon="lan" meta="{{ __('admin.stats_system_active') }}" />
-                    <x-admin.stats-card label="{{ __('admin.security_alerts') }}" value="{{ $securityAlerts ?? 0 }}" icon="gpp_maybe" meta="{{ __('admin.stats_last_inspection') }}" />
+                    <x-admin.stats-card label="{{ __('admin.admins_added_today') }}" value="{{ $adminsAddedToday ?? 0 }}" icon="today" meta="{{ __('admin.stats_today') }}" />
+                    <x-admin.stats-card label="{{ __('admin.admins_added_this_week') }}" value="{{ $adminsAddedThisWeek ?? 0 }}" icon="calendar_view_week" meta="{{ __('admin.stats_last_7_days') }}" />
                 </div>
             </div>
 

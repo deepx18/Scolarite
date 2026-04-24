@@ -53,18 +53,8 @@
                 <span class="font-medium">{{ __('admin.manage_administrators') }}</span>
             </a>
         @endif
-        <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out duration-150 cursor-pointer"
-            href="#">
-            <span class="material-symbols-outlined">settings</span>
-            <span class="font-medium">{{ __('admin.system_settings') }}</span>
-        </a>
     </nav>
     <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-1">
-        <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all"
-            href="#">
-            <span class="material-symbols-outlined">contact_support</span>
-            <span class="font-medium">{{ __('admin.support') }}</span>
-        </a>
         <form method="POST" action="{{ route('admin.logout') }}" class="m-0">
             @csrf
             <button type="submit"

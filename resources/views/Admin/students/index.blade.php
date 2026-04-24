@@ -75,7 +75,7 @@
                         <option value="">{{ __('admin.status') }}</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
-                                {{ ucfirst($status) }}
+                                {{ __("admin.{$status}") === "admin.{$status}" ? ucfirst($status) : __("admin.{$status}") }}
                             </option>
                         @endforeach
                     </select>

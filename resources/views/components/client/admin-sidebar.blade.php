@@ -4,10 +4,10 @@
 <div id="sidebarOverlay" class="hidden lg:hidden fixed inset-0 bg-black/50 z-30 transition-all duration-300"></div>
 
 <!-- Admin-style Student Sidebar -->
-<aside id="studentSidebar" class="fixed left-0 top-0 h-screen w-64 pt-20 bg-white dark:bg-slate-950 flex flex-col p-4 space-y-2 border-r border-slate-100 dark:border-slate-800 transition-all duration-300 ease-in-out -translate-x-full lg:translate-x-0 z-40">
+<aside id="studentSidebar" class="fixed left-0 top-0 h-screen w-64 pt-20 bg-slate-50 dark:bg-slate-950 flex flex-col p-4 space-y-2 border-r border-slate-200/50 dark:border-slate-800 transition-all duration-300 ease-in-out -translate-x-full lg:translate-x-0 z-40">
     <div class="mb-6 px-2">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-sm">
+            <div class="w-11 h-11 bg-primary rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
                 <span class="material-symbols-outlined text-lg">school</span>
             </div>
             <div class="flex-1 min-w-0">
@@ -20,7 +20,7 @@
     <nav class="grow space-y-0.5">
         <a 
             href="{{ route('requests.index') }}"
-            class="{{ request()->routeIs('requests.index') ? 'flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
+            class="{{ request()->routeIs('requests.index') ? 'flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
         >
             <span class="material-symbols-outlined text-lg">list</span>
             <span class="font-medium">My Requests</span>
@@ -28,7 +28,7 @@
 
         <a 
             href="{{ route('requests.create') }}"
-            class="{{ request()->routeIs('requests.create') ? 'flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
+            class="{{ request()->routeIs('requests.create') ? 'flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
         >
             <span class="material-symbols-outlined text-lg">add_circle</span>
             <span class="font-medium">New Request</span>
@@ -36,7 +36,7 @@
 
         <a 
             href="{{ route('profile.show') }}"
-            class="{{ request()->routeIs('profile.*') ? 'flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
+            class="{{ request()->routeIs('profile.*') ? 'flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-primary rounded-xl font-semibold shadow-sm transition-all' : 'flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all' }}"
         >
             <span class="material-symbols-outlined text-lg">account_circle</span>
             <span class="font-medium">My Profile</span>

@@ -23,10 +23,10 @@ class SuperAdminController extends Controller
         ->withQueryString();
 
         $totalAdmins = Admin::count();
-        $activeSessions = 12;
-        $securityAlerts = 0;
+        $adminsAddedToday = Admin::whereDate('created_at', now()->toDateString())->count();
+        $adminsAddedThisWeek = Admin::where('created_at', '>=', now()->subWeek())->count();
 
-        return view('Admin.manage-admins', compact('admins', 'totalAdmins', 'activeSessions', 'securityAlerts', 'search'));
+        return view('Admin.manage-admins', compact('admins', 'totalAdmins', 'adminsAddedToday', 'adminsAddedThisWeek', 'search'));
     }
 
     public function store(Request $request)
