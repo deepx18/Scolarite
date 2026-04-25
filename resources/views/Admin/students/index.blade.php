@@ -11,8 +11,7 @@
                     <h1 class="mt-2 text-3xl font-bold text-blue-950 dark:text-white">
                         {{ __('admin.student_directory') }}
                     </h1>
-                    <p class="mt-3 max-w-2xl text-sm text-slate-500">Browse and manage the complete student roster with
-                        advanced filtering and search capabilities.</p>
+                    <p class="mt-3 max-w-2xl text-sm text-slate-500">{{ __('admin.students.description') }}</p>
                 </div>
                 <div class="flex flex-wrap gap-3">
                     <a href="{{ route('admin.students.create') }}"
@@ -76,7 +75,7 @@
                         <option value="">{{ __('admin.status') }}</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
-                                {{ ucfirst($status) }}
+                                {{ __("admin.{$status}") === "admin.{$status}" ? ucfirst($status) : __("admin.{$status}") }}
                             </option>
                         @endforeach
                     </select>
@@ -96,14 +95,12 @@
                 <table class="w-full text-left border-collapse min-w-full">
                     <thead>
                         <tr class="bg-surface-container-low/50">
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Student</th>
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Apogee Number
-                            </th>
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">CNE</th>
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Department</th>
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">Status</th>
-                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500 text-right">
-                                Actions</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">{{ __('admin.students.table.student') }}</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">{{ __('admin.students.table.apogee') }}</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">{{ __('admin.students.table.cne') }}</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">{{ __('admin.students.table.department') }}</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500">{{ __('admin.students.table.status') }}</th>
+                            <th class="p-5 font-bold text-xs uppercase tracking-widest text-slate-500 text-right">{{ __('admin.students.table.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-surface-container-low">
@@ -134,31 +131,35 @@
                                             'suspended' => ['bg-rose-50', 'text-rose-700'],
                                         ];
                                         $statusClass = $statusClasses[$student->status] ?? ['bg-slate-100', 'text-slate-700'];
+                                        $statusKey = 'admin.' . $student->status;
+                                        $studentStatusLabel = __($statusKey);
+                                        if ($studentStatusLabel === $statusKey) {
+                                            $studentStatusLabel = ucfirst($student->status);
+                                        }
                                     @endphp
-                                    <span
-                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $statusClass[0] }} {{ $statusClass[1] }}">
-                                        {{ ucfirst($student->status) }}
+                                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $statusClass[0] }} {{ $statusClass[1] }}">
+                                        {{ $studentStatusLabel }}
                                     </span>
                                 </td>
                                 <td class="p-5 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.students.show', $student) }}"
-                                            class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 transition"
-                                            title="View">
+                                            <a href="{{ route('admin.students.show', $student) }}"
+                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 transition"
+                                                title="{{ __('admin.actions.view') }}">
                                             <span class="material-symbols-outlined text-base">visibility</span>
                                         </a>
-                                        <a href="{{ route('admin.students.edit', $student) }}"
-                                            class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 transition"
-                                            title="Edit">
+                                            <a href="{{ route('admin.students.edit', $student) }}"
+                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 transition"
+                                                title="{{ __('admin.actions.edit') }}">
                                             <span class="material-symbols-outlined text-base">edit</span>
                                         </a>
                                         <form action="{{ route('admin.students.destroy', $student) }}" method="POST"
-                                            class="inline" onsubmit="return confirm('Delete this student?');">
+                                            class="inline" onsubmit="return confirm('{{ __('admin.delete_student_confirm') }}');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
                                                 class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition"
-                                                title="Delete">
+                                                title="{{ __('admin.actions.delete') }}">
                                                 <span class="material-symbols-outlined text-base">delete</span>
                                             </button>
                                         </form>
@@ -177,9 +178,7 @@
 
                 <!-- Pagination -->
                 <div class="p-5 flex justify-between items-center bg-surface-container-low/20">
-                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Showing
-                        {{ $students->firstItem() }}-{{ $students->lastItem() }} of {{ $students->total() }} students
-                    </p>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">{{ __('admin.students.showing', ['from' => $students->firstItem(), 'to' => $students->lastItem(), 'total' => $students->total()]) }}</p>
                     {{ $students->links() }}
                 </div>
             </div>

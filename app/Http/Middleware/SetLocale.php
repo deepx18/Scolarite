@@ -23,8 +23,11 @@ class SetLocale
         // 1. Check session first
         if ($request->session()->has('locale')) {
             $locale = $request->session()->get('locale');
+        } elseif ($request->cookies->has('locale')) {
+            // 2. Then check cookie set by language switcher
+            $locale = $request->cookies->get('locale');
         } else {
-            // 2. Fall back to browser's Accept-Language header
+            // 3. Fall back to browser's Accept-Language header
             $browserLocale = $request->getPreferredLanguage($this->supported);
             $locale = $browserLocale ?? config('app.locale', 'en');
         }

@@ -30,7 +30,7 @@ class AdminAuthController extends Controller
         if ($admin && Hash::check($request->password, $admin->password)) {
             Auth::guard('admin')->login($admin);
 
-            return redirect()->route('admin.requests.index')->with('success', 'Welcome Admin!');
+            return redirect()->route('admin.requests.index');
         }
 
         return back()->withErrors(['login' => 'Invalid credentials'])->withInput();

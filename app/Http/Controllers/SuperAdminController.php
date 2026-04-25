@@ -23,10 +23,10 @@ class SuperAdminController extends Controller
         ->withQueryString();
 
         $totalAdmins = Admin::count();
-        $activeSessions = 12;
-        $securityAlerts = 0;
+        $adminsAddedToday = Admin::whereDate('created_at', now()->toDateString())->count();
+        $adminsAddedThisWeek = Admin::where('created_at', '>=', now()->subWeek())->count();
 
-        return view('Admin.manage-admins', compact('admins', 'totalAdmins', 'activeSessions', 'securityAlerts', 'search'));
+        return view('Admin.manage-admins', compact('admins', 'totalAdmins', 'adminsAddedToday', 'adminsAddedThisWeek', 'search'));
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class SuperAdminController extends Controller
         $data['role'] = 'admin';
         Admin::create($data);
 
-        return redirect()->route('admin.manage.index')->with('success', 'Administrator created successfully.');
+        return redirect()->route('admin.manage.index')->with('success', __('admin.administrator_created'));
     }
 
     public function show(Admin $admin)
@@ -69,17 +69,17 @@ class SuperAdminController extends Controller
 
         $admin->update($data);
 
-        return redirect()->route('admin.manage.index')->with('success', 'Administrator updated successfully.');
+        return redirect()->route('admin.manage.index')->with('success', __('admin.administrator_updated'));
     }
 
     public function destroy(Admin $admin)
     {
         if ($admin->role === 'super_admin') {
-            return redirect()->route('admin.manage.index')->with('error', 'A super administrator cannot be deleted.');
+            return redirect()->route('admin.manage.index')->with('error', __('admin.cannot_delete_super_admin'));
         }
 
         $admin->delete();
 
-        return redirect()->route('admin.manage.index')->with('success', 'Administrator deleted successfully.');
+        return redirect()->route('admin.manage.index')->with('success', __('admin.administrator_deleted'));
     }
 }

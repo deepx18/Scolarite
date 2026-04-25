@@ -57,7 +57,7 @@ class FORequestsController extends Controller
 
         if (!$this->reclamationsEnabled()) {
             return redirect()->route('requests.index')
-                ->with('error', 'Reclamations are currently closed. Please try again later.')
+                ->with('error', __('admin.reclamations_closed'))
                 ->with('step', 1);;
         }
 
@@ -74,7 +74,7 @@ class FORequestsController extends Controller
     {
         if (!$this->reclamationsEnabled()) {
             return redirect()->route('requests.index')
-                ->with('error', 'Reclamations are currently closed. Your submission could not be accepted.');
+                ->with('error', __('admin.reclamations_closed_submission'));
         }
 
         $type = $request->input('type');
@@ -110,7 +110,7 @@ class FORequestsController extends Controller
         ]);
 
         return redirect()->route('requests.index')
-            ->with('success', 'Request submitted successfully. Your reference number is: ' . $reference);
+            ->with('success', __('admin.request_submitted', ['reference' => $reference]));
     }
 
     /**

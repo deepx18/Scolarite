@@ -1,10 +1,13 @@
 @props(['userImage' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBvzTLW7XVKdQDbl9Zial6-tbHxYohgUxvgOC8MGTGQD5zajxXQNGNTxEkNJS1kZ9BUTqXVUFNFsXVhtL6oFoUX50gyVmLPsan4zxGaihb9rgZ1fqqdtjBPZeiyvD4-U-CXoVxz0fNSayiAicw4B-EYdapiIqgETVjX9aiCeohQwBxoWd_ghUIgB-CdlbrZaf_XyIK6BZtSRkIqrlwD71p6Djt9gAh7J_IDKkUSn1tkI4CU0-_7pS4StIFhT6cR8vB4AIsxWxizVBs'])
 
 <header
-    class="fixed bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl flex justify-between items-center w-full px-6 py-3 max-w-full mx-auto z-50 sticky top-0">
-    <div class="flex items-center space-x-6">
-        <a href="{{ url('/') }}" class="flex items-center">
-            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-10 h-10 object-contain" />
+    class="fixed bg-slate-50/95 dark:bg-slate-950/90 border-b border-slate-200/40 dark:border-slate-800/40 backdrop-blur-xl flex justify-between items-center w-full px-6 py-3 max-w-full mx-auto z-50 sticky top-0">
+    <div class="flex items-center space-x-4">
+        <button id="sidebarToggleBtn" onclick="toggleStudentSidebar()" class="p-2 lg:hidden bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 shadow-sm hover:bg-slate-200/80 rounded-full transition-colors">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <a href="{{ url('/') }}" class="flex items-center gap-3">
+            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-30 h-11 object-contain" />
         </a>
         <div class="hidden md:flex items-center space-x-6 border-l pl-6 border-slate-200/20 dark:border-slate-800/20">
             {{-- <a

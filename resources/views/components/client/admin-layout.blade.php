@@ -77,9 +77,6 @@
             {{ $slot }}
         </div>
     </main>
-
-    <!-- Mobile Bottom Navigation -->
-    <x-client.bottom-nav />
 </body>
 
 </html>

@@ -63,7 +63,13 @@ class Request extends Model
      */
     public function typeLabel(): string
     {
-        return self::TYPES[$this->type] ?? ucfirst(str_replace('_', ' ', $this->type));
+        // Use localization key first so labels are translated when locale changes
+        $key = 'admin.request_types.' . $this->type;
+        $translated = __($key);
+        if ($translated === $key) {
+            return self::TYPES[$this->type] ?? ucfirst(str_replace('_', ' ', $this->type));
+        }
+        return $translated;
     }
 
     /**
@@ -71,7 +77,12 @@ class Request extends Model
      */
     public function statusLabel(): string
     {
-        return self::STATUSES[$this->status] ?? ucfirst(str_replace('_', ' ', $this->status));
+        $key = 'admin.statuses.' . $this->status;
+        $translated = __($key);
+        if ($translated === $key) {
+            return self::STATUSES[$this->status] ?? ucfirst(str_replace('_', ' ', $this->status));
+        }
+        return $translated;
     }
 
     /**
