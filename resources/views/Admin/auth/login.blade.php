@@ -102,106 +102,116 @@
     </style>
 </head>
 
-<body class="bg-[#f4f7fb] font-body text-slate-900 selection:bg-[#0f2755] selection:text-white">
+<body class="pattern-bg min-h-screen flex items-center justify-center overflow-x-hidden">
     <main class="min-h-screen flex items-center justify-center px-4 py-8">
-        <div class="w-full max-w-6xl rounded-[32px] overflow-hidden shadow-[0_28px_70px_rgba(15,23,42,0.12)]">
-            <div class="grid grid-cols-1 md:grid-cols-2 bg-white">
+        <div class="w-full max-w-6xl rounded-[32px] overflow-hidden shadow-[0_28px_70px_rgba(15,23,42,0.12)] bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-2">
                 <!-- Left Branding Panel -->
                 <div
-                    class="hidden md:flex flex-col justify-between bg-[#0f2755] p-16 text-white relative overflow-hidden">
-                    <div>
-                            <div class="flex items-center gap-3 mb-10">
-                            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-12 h-12 object-contain rounded-2xl bg-white/10 p-1" />
+                    class="hidden md:flex flex-col justify-center items-center editorial-gradient p-20 pt-12 text-white relative overflow-hidden">
+                    <div class="w-60 h-60 flex items-center justify-center rounded-2xl bg-white/6 p-6"
+                        style="backdrop-filter: blur(6px);">
+                        <div class="bg-white rounded-lg p-3 shadow-md flex items-center justify-center">
+                            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo"
+                                class="w-50 h-auto object-contain" />
                         </div>
-                        <h1 class="font-headline text-[2.95rem] leading-tight font-extrabold mb-6">
-                            Institutional<br />Control Center</h1>
-                        <p class="max-w-md text-slate-200/85 text-lg leading-8">Access the administrative core to manage
-                            faculty research, student curricula, and global academic outreach.</p>
+                    </div>
+                    <div class="mt-6 text-center max-w-xs mx-auto">
+                        <p class="mt-6 text-center max-w-xs mx-auto">
+                            <span class="block text-sm font-semibold text-[#bd841a]">
+                                Ecole Nationale Supérieure d'Arts et Métiers
+                            </span>
+                            <span class="block text-xs text-gray-400 mt-1">
+                                Université Hassan II Casablanca
+                            </span>
+                        </p>
                     </div>
                     <div
-                        class="flex items-center gap-4 bg-white/10 border border-white/10 rounded-[24px] p-4 shadow-[0_16px_35px_rgba(15,23,42,0.18)] max-w-xs">
-                        <img class="w-12 h-12 rounded-full object-cover border border-white/20"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuChAjZULxxhGEUuwHJxwAc8JLZ9bbOg-pUQgKTvgFjI3p_QNo1YMMKzxZSSGB7jKzeHs9xOYpZF0VvOkqewMyrSd5wwC6jrBav7dILjXfJjDDw5520DJeCvP6BPyD3m2vb0eAg0VsXyJowtwdQzunqtcTgjNL0zymy5HCkrp68kJV5uv5Vr75cAXNObOSOj5nXQsawSMmFMJbQtRQoAThkne9Vb4Pzg31UxVtED1BNmf-wdwdRUxlISk9nbZXQIHg11Tm804DZ1OpQ"
-                            alt="Lead Administrator avatar" />
-                        <div>
-                            <p class="font-semibold text-white">Dr. Elias Thorne</p>
-                            <p class="text-sm text-slate-200/70">Head of Global Research</p>
-                        </div>
+                        class="absolute -right-24 bottom-[-5rem] w-60 h-60 rounded-full bg-white/10 blur-3xl pointer-events-none">
                     </div>
-                    <div class="absolute -right-24 bottom-[-5rem] w-72 h-72 rounded-full bg-white/10 blur-3xl"></div>
                 </div>
 
                 <!-- Login Form Panel -->
                 <div class="bg-white p-8 md:p-14 flex flex-col justify-center">
                     <div class="max-w-xl">
-                        <div class="mb-10">
-                            <div class="md:hidden flex items-center gap-3 mb-8">
-                                <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-10 h-10 object-contain" />
+                        <div class="mb-">
+                            <div class="md:hidden flex flex-col items-start gap-3 mb-8 -mt-6">
+                                <div class="bg-white rounded-md p-1 shadow-sm">
+                                    <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo"
+                                        class="w-15 h-12 object-contain" />
+                                </div>
+
                             </div>
                             <span
-                                class="inline-flex items-center justify-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-slate-500 mb-4">{{ __('admin.admin_portal') }}</span>
-                            <h2 class="font-headline text-4xl font-extrabold text-slate-950 mb-3">
-                                {{ __('admin.welcome_back') }}
-                            </h2>
-                            <p class="text-slate-600 text-base">{{ __('admin.login_prompt') }}</p>
-                        </div>
-                        <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-6">
-                            @csrf
-                            @if ($errors->any())
-                                <div class="rounded-3xl border border-rose-200/60 bg-rose-50/90 p-4 text-rose-700">
-                                    <div class="flex items-start gap-3">
-                                        <span class="material-symbols-outlined text-rose-700 text-xl">error</span>
-                                        <p class="text-sm leading-relaxed">{{ $errors->first() }}</p>
+                                class="inline-flex items-center justify-center rounded-full bg-[#eef6ff] px-3 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-[#0f2755] mb-4">PORTAIL
+                                ADMINISTRATEUR</span>
+
+                            <p class="text-slate-600 text-base">Veuillez entrer vos identifiants institutionnels.</p>
+                            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-6">
+                                @csrf
+                                @if ($errors->any())
+                                    <div class="rounded-3xl border border-rose-200/60 bg-rose-50/90 p-4 text-rose-700">
+                                        <div class="flex items-start gap-3">
+                                            <span class="material-symbols-outlined text-rose-700 text-xl">error</span>
+                                            <p class="text-sm leading-relaxed">{{ $errors->first() }}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div>
+                                    <label for="email"
+                                        class="block text-sm font-semibold text-slate-700 mb-2">{{ __('admin.university_email') }}</label>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">alternate_email</span>
+                                        <input id="email" name="email" type="email" value="{{ old('email') }}"
+                                            placeholder="superadmin@example.com"
+                                            class="w-full rounded-2xl border border-transparent bg-[#eef6ff] px-4 pl-12 py-4 text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#0f2755]/10" />
                                     </div>
                                 </div>
-                            @endif
-                            <div>
-                                <label for="email"
-                                    class="block text-sm font-semibold text-slate-700 mb-2">{{ __('admin.university_email') }}</label>
-                                <div class="relative">
-                                    <span
-                                        class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">alternate_email</span>
-                                    <input id="email" name="email" type="email" value="{{ old('email') }}"
-                                        placeholder="admin.name@university.edu"
-                                        class="w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 pl-12 py-4 text-slate-900 placeholder:text-slate-400 focus:border-[#0f2755] focus:outline-none focus:ring-2 focus:ring-[#0f2755]/10" />
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label for="password"
+                                            class="text-sm font-semibold text-slate-700">{{ __('admin.password') }}</label>
+                                        <a href="#"
+                                            class="text-sm font-semibold text-[#bd841a] hover:underline">{{ __('admin.forgot_password') }}</a>
+                                    </div>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">lock</span>
+                                        <input id="password" name="password" type="password" placeholder="••••••••"
+                                            class="w-full rounded-2xl border border-transparent text-[#bd841a] px-4 pl-12 py-4 text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#0f2755]/10" />
+                                        <button type="button"
+                                            class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0f2755]"><span
+                                                class="material-symbols-outlined">visibility</span></button>
+
+                                        <!--  button Visibility -->
+                                        <script>
+                                            document.querySelector('button[type="button"]').addEventListener('click', function () {
+                                                const input = document.getElementById('password');
+                                                input.type = input.type === 'password' ? 'text' : 'password';
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <label for="password"
-                                        class="text-sm font-semibold text-slate-700">{{ __('admin.password') }}</label>
-                                    <a href="#"
-                                        class="text-sm font-semibold text-[#0f2755] hover:underline">{{ __('admin.forgot_password') }}</a>
+                                <div class="flex items-center gap-3">
+                                    <input id="remember" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}
+                                        class="h-5 w-5 rounded border-slate-300 text-[#0f2755] focus:ring-[#0f2755]" />
+                                    <label for="remember"
+                                        class="text-sm text-slate-600 font-medium">{{ __('admin.stay_logged_in') }}</label>
                                 </div>
-                                <div class="relative">
-                                    <span
-                                        class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">lock</span>
-                                    <input id="password" name="password" type="password" placeholder="••••••••"
-                                        class="w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 pl-12 py-4 text-slate-900 placeholder:text-slate-400 focus:border-[#0f2755] focus:outline-none focus:ring-2 focus:ring-[#0f2755]/10" />
-                                    <button type="button"
-                                        class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0f2755]">
-                                        <span class="material-symbols-outlined">visibility</span>
-                                    </button>
-                                </div>
+                                <button type="submit"
+                                    class="w-full rounded-2xl bg-[#0f2755] px-6 py-4 text-white text-base font-semibold shadow-[0_16px_30px_rgba(15,23,42,0.18)] hover:bg-[#0b1f46] transition-colors duration-200 flex items-center justify-center gap-2">Connexion
+                                    administrateur <span class="material-symbols-outlined">arrow_forward</span></button>
+                            </form>
+                            <div class="mt-12 border-t border-slate-200 pt-8">
+                                <p class="text-center text-sm leading-6 text-slate-500">{{ __('admin.auth_notice') }}
+                                </p>
+
                             </div>
-                            <div class="flex items-center gap-3">
-                                <input id="remember" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} class="h-5 w-5 rounded border-slate-300 text-[#0f2755] focus:ring-[#0f2755]" />
-                                <label for="remember"
-                                    class="text-sm text-slate-600 font-medium">{{ __('admin.stay_logged_in') }}</label>
-                            </div>
-                            <button type="submit"
-                                class="w-full rounded-2xl bg-[#0f2755] px-6 py-4 text-white text-base font-semibold shadow-[0_16px_30px_rgba(15,23,42,0.18)] hover:bg-[#0b1f46] transition-colors duration-200 flex items-center justify-center gap-2">
-                                {{ __('admin.admin_sign_in') }}
-                                <span class="material-symbols-outlined">arrow_forward</span>
-                            </button>
-                        </form>
-                        <div class="mt-12 border-t border-slate-200 pt-8">
-                            <p class="text-center text-sm leading-6 text-slate-500">{{ __('admin.auth_notice') }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
 </body>
 

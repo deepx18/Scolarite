@@ -8,10 +8,11 @@
     class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm flex justify-between items-center px-4 sm:px-8 h-16 w-full">
     <div class="flex items-center gap-4 sm:gap-8">
         <!-- Menu Toggle Button (hidden on desktop) -->
-        <button id="sidebarToggleBtn" onclick="toggleSidebar()" class="p-2 lg:hidden hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors">
+        <button id="sidebarToggleBtn" onclick="toggleSidebar()"
+            class="p-2 lg:hidden hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors">
             <span class="material-symbols-outlined text-slate-700 dark:text-slate-300">menu</span>
         </button>
-        
+
         <a href="{{ route('admin.dashboard') }}" class="flex items-center">
             <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-30 h-11 object-contain" />
         </a>
@@ -34,7 +35,8 @@
             <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
         </div>
         <span
-            class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 rounded-full cursor-pointer">help_outline</span> --}}
+            class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 rounded-full cursor-pointer">help_outline</span>
+        --}}
         <div class="relative">
             <button id="adminProfileButton" type="button"
                 class="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 hover:shadow-sm transition"
@@ -44,7 +46,8 @@
                     src="https://ui-avatars.com/api/?name={{ urlencode($admin->name ?? 'Admin') }}&background=002045&color=ffffff&size=128" />
                 <div class="hidden md:flex flex-col text-left">
                     <span class="text-sm font-semibold text-slate-900">{{ $admin->name ?? 'Administrator' }}</span>
-                    <span class="text-xs text-slate-500">{{ $role === 'super_admin' ? 'Super Admin' : 'Administrator' }}</span>
+                    <span
+                        class="text-xs text-slate-500">{{ $role === 'super_admin' ? 'Super Admin' : 'Administrator' }}</span>
                 </div>
                 <span class="material-symbols-outlined text-slate-400">expand_more</span>
             </button>

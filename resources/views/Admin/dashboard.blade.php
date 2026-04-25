@@ -2,7 +2,7 @@
     <x-admin.navbar />
     <x-admin.sidebar />
 
-    <main class="pt-20 sm:pt-24 lg:ml-64 px-4 sm:px-8 pb-12">
+    <main class="ml-64 pt-24 px-8 pb-12">
 
         <div class="flex flex-col gap-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -12,11 +12,8 @@
                     <p class="mt-3 max-w-2xl text-sm text-slate-500">{{ __('admin.welcome_summary') }}</p>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                    <button type="button" onclick="openExportModal()"
-                        class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-base">download</span>
-                        {{ __('admin.export_data') }}
-                    </button>
+                    <a href="{{ route('admin.requests.index', ['export' => 1]) }}"
+                        class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">{{ __('admin.export_data') }}</a>
                     <a href="{{ route('admin.requests.index') }}"
                         class="rounded-full bg-blue-950 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-900">{{ __('admin.custom_filters') }}</a>
                 </div>
@@ -137,7 +134,7 @@
                             <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
                                 <div>
                                     <p class="font-semibold text-slate-900 dark:text-white">{{ $action->student->first_name }} {{ $action->student->last_name }}</p>
-                                    <p class="text-sm text-slate-500">{{ $typeNames[$action->type] }}</p>
+                                    <p class="text-sm text-slate-500">{{ $action->type }}</p>
                                 </div>
                                 <span class="inline-flex items-center rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">{{ __('admin.priority_actions.delayed_label') }}</span>
                             </div>
@@ -169,6 +166,4 @@
         </div>
 
     </main>
-
-    <x-admin.export-students-modal />
 </x-admin.layout>

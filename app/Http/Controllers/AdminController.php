@@ -350,6 +350,29 @@ class AdminController extends Controller
         return view('Admin.profile', compact('admin'));
     }
 
+    public function recentRequesters()
+    {
+        $recent = \App\Models\Request::with('student')
+            ->latest()
+            ->take(12)
+            ->get()
+            ->pluck('student')
+            ->filter()
+            ->unique('id')
+            ->values()
+            ->take(8)
+            ->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => trim(($student->first_name ?? '') . ' ' . ($student->last_name ?? '')),
+                    'avatar' => $student->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(trim(($student->first_name ?? '') . ' ' . ($student->last_name ?? ''))) . '&background=002045&color=ffffff&size=128',
+                    'profile_url' => route('admin.students.show', $student->id),
+                ];
+            });
+
+        return response()->json(['data' => $recent]);
+    }
+
     // Toggle reclamations open/close status
     public function toggleReclamations(Request $request)
     {
