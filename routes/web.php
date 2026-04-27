@@ -11,7 +11,7 @@ use App\Http\Controllers\StudentProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('admin.admin.login');
+    return redirect()->route('login.student.show');
 });
 
 // Locale switcher
