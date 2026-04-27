@@ -128,11 +128,11 @@
         <div class="w-full max-w-6xl rounded-[32px] overflow-hidden shadow-[0_28px_70px_rgba(15,23,42,0.12)] bg-white">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <!-- Left Branding Panel -->
-                <div class="hidden md:flex flex-col justify-center items-start editorial-gradient p-12 text-white relative overflow-hidden"
+                <div class="hidden md:flex flex-col justify-center items-center editorial-gradient p-12 text-white relative overflow-hidden"
                     style="border-top-left-radius:48px;border-bottom-left-radius:48px;">
                     <div class="w-64 h-64 flex items-center justify-center rounded-2xl bg-white/6 p-1"
                         style="backdrop-filter: blur(6px);">
-                        <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center">
+                        <div class="bg-white rounded-lg p-4 shadow-md flex items-center justify-center hover:text-[#2e056b] hover:bg-[#0f2755]/100 transition-shadow duration-300 cursor-pointer animation-pulse hover:animation-none ">
                             <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo"
                                 class="w-48 h-auto object-contain" />
                         </div>
@@ -141,8 +141,9 @@
                     <span
                         class="inline-flex items-center justify-center rounded-full branding-badge px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] mb-6">PORTAIL
                         ADMINISTRATEUR</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold leading-tight max-w-[18rem] mb-6">Bienvenue sur le<br
-                            class="hidden md:inline" />Portail Administrateur</h2>
+                    <h4 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:#fff; font-weight: bold; font-style:italic; font-size: 2.5rem; line-height: 1.2;"
+                        class="text-3xl md:text-4xl font-extrabold leading-tight max-w-[18rem] mb-6">Bienvenue sur le
+                   <span class="hidden md:inline hover:text-[#bd841a]">Portail Administrateur</h4>
 
 
                     <div class="left-decor-circle"></div>
@@ -152,16 +153,13 @@
                 <div class="bg-white p-8 md:p-14 flex flex-col justify-center">
                     <div class="max-w-xl">
                         <div class="mb-">
-                            <div class="md:hidden flex flex-col items-start gap-3 mb-8 -mt-6">
-                                <div class="bg-white rounded-md p-1 shadow-sm">
+                            <div class="md:hidden flex flex-col items-center gap-3 mb-8 -mt-6">
+                                <div class="bg-white rounded-md p-1 shadow-sm flex items-center justify-center">
                                     <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo"
                                         class="w-36 h-auto object-contain" />
                                 </div>
 
                             </div>
-
-
-                            <p class="text-slate-600 text-base">Veuillez entrer vos identifiants institutionnels.</p>
                             <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-6">
                                 @csrf
                                 @if ($errors->any())
