@@ -23,8 +23,7 @@
                     <form method="POST" action="{{ route('admin.logout') }}" class="m-0">
                         @csrf
                         <button type="submit"
-                            class="rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white hover:bg-rose-700 transition">Log
-                            Out</button>
+                            class="rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white hover:bg-rose-700 transition">{{ __('admin.logout') }}</button>
                     </form>
                 </div>
             </div>
@@ -47,7 +46,7 @@
                         </div>
                         <div>
                             <p class="text-xs uppercase tracking-[0.3em] text-slate-500">{{ __('admin.department') }}</p>
-                            <p class="font-semibold">{{ $admin->department ?? 'Not specified' }}</p>
+                            <p class="font-semibold">{{ $admin->department ?? __('admin.not_specified') }}</p>
                         </div>
                     </div>
                 </div>

@@ -281,6 +281,13 @@ return [
         'placeholder_password' => 'Create a secure password',
         'protected' => 'Protected',
         'administration' => 'Administration',
+        'profile' => 'Profile',
+        'account_details' => 'Account Details',
+        'manage_students' => 'Manage Students',
+        'view_requests' => 'View Requests',
+        'open_student_directory' => 'Open Student Directory',
+        'admin_dashboard' => 'Admin Dashboard',
+        'not_specified' => 'Not specified',
         // Admin profile / edit
         'edit_administrator' => 'Edit Administrator',
         'administrator_profile' => 'Administrator Profile',

@@ -262,6 +262,13 @@ return [
     'placeholder_password' => 'Créez un mot de passe sécurisé',
     'protected' => 'Protégé',
     'administration' => 'Administration',
+    'profile' => 'Profil',
+    'account_details' => 'Détails du compte',
+    'manage_students' => 'Gérer les étudiants',
+    'view_requests' => 'Voir les demandes',
+    'open_student_directory' => 'Ouvrir l\'annuaire des étudiants',
+    'admin_dashboard' => 'Tableau de bord admin',
+    'not_specified' => 'Non spécifié',
     // Admin profile / edit
     'edit_administrator' => 'Modifier l\'administrateur',
     'administrator_profile' => 'Profil de l\'administrateur',
