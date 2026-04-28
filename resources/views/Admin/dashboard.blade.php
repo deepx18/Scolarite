@@ -2,7 +2,7 @@
     <x-admin.navbar />
     <x-admin.sidebar />
 
-    <main class="ml-64 pt-24 px-8 pb-12">
+    <main class="lg:ml-64 pt-20 sm:pt-24 px-4 sm:px-8 pb-12">
 
         <div class="flex flex-col gap-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -28,7 +28,7 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 <div
                     class="rounded-3xl bg-white dark:bg-slate-950 p-6 shadow-sm border border-slate-200 dark:border-slate-800">
                     <p class="text-sm text-slate-500">{{ __('admin.total_requests') }}</p>

@@ -177,17 +177,13 @@
                                         <span
                                             class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">alternate_email</span>
                                         <input id="email" name="email" type="email" value="{{ old('email') }}"
-                                            placeholder="superadmin@example.com"
+                                            placeholder="administrateur@example.com"
                                             class="w-full rounded-2xl border border-transparent bg-[#eef6ff] px-4 pl-12 py-4 text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#0f2755]/10" />
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="flex items-center justify-between mb-2">
-                                        <label for="password"
-                                            class="text-sm font-semibold text-slate-700">{{ __('admin.password') }}</label>
-                                        <a href="#"
-                                            class="text-sm font-semibold text-[#bd841a] hover:underline">{{ __('admin.forgot_password') }}</a>
-                                    </div>
+                                    <label for="password"
+                                        class="text-sm font-semibold text-slate-700">{{ __('admin.password') }}</label>
                                     <div class="relative">
                                         <span
                                             class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">lock</span>

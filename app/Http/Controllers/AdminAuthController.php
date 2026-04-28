@@ -11,6 +11,7 @@ class AdminAuthController extends Controller
 {
     public function showLoginForm()
     {
+        app()->setLocale('fr');
         return view('Admin.auth.login');
     }
 
@@ -28,7 +29,7 @@ class AdminAuthController extends Controller
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->password)) {
-            Auth::guard('admin')->login($admin);
+            Auth::guard('admin')->login($admin, $request->filled('remember'));
 
             return redirect()->route('admin.requests.index');
         }

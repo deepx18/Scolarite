@@ -4,9 +4,9 @@
     <x-admin.sidebar active="manage-admins" />
     <x-admin.navbar />
 
-    <div class="ml-72 min-h-screen bg-background">
+    <div class="lg:ml-72 min-h-screen bg-background">
 
-        <main class="pt-24 px-8 pb-10">
+        <main class="pt-20 sm:pt-24 px-4 sm:px-8 pb-10">
             <div class="space-y-6">
                 <div>
                     <div class="flex items-center gap-2 text-sm text-slate-500 mb-3">
@@ -38,13 +38,13 @@
                 @endif
 
                 <section class="mt-8 rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-                    <div class="px-8 py-6 border-b border-slate-200">
-                        <h2 class="text-xl font-bold text-slate-900 font-headline">{{ __('admin.administrator_directory') }}</h2>
-                        <p class="mt-2 text-sm text-slate-500">{{ __('admin.administrator_directory_description') }}</p>
+                    <div class="px-4 sm:px-8 py-6 border-b border-slate-200">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 font-headline">{{ __('admin.administrator_directory') }}</h2>
+                        <p class="mt-2 text-xs sm:text-sm text-slate-500">{{ __('admin.administrator_directory_description') }}</p>
                     </div>
 
-                    <div class="px-8 py-6 border-b border-slate-200 lg:flex lg:items-center lg:justify-between lg:gap-4">
-                        <form action="{{ route('admin.manage.index') }}" method="GET" class="flex w-full lg:max-w-lg">
+                    <div class="px-4 sm:px-8 py-6 border-b border-slate-200 lg:flex lg:items-center lg:justify-between lg:gap-4">
+                        <form action="{{ route('admin.manage.index') }}" method="GET" class="flex w-full mb-4 lg:mb-0 lg:max-w-lg">
                             <div class="relative w-full">
                                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
                                 <input type="search" name="search" value="{{ old('search', $search ?? '') }}" placeholder="{{ __('admin.filter_admins_placeholder') }}" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-12 py-4 text-sm text-slate-700 shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
