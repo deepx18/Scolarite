@@ -14,7 +14,7 @@
         </button>
 
         <a href="{{ route('admin.dashboard') }}" class="flex items-center">
-            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-30 h-11 object-contain" />
+            <img src="{{ asset('logoEnsam.png') }}" alt="ENSAM logo" class="w-28 h-11 object-contain" />
         </a>
         {{-- <div class="hidden md:flex items-center gap-6">
             <a href="{{ route('admin.dashboard') }}"

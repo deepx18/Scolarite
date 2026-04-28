@@ -8,7 +8,7 @@
             <span class="material-symbols-outlined">menu</span>
         </button>
         <a href="{{ url('/') }}" class="flex items-center gap-3">
-            <img src="{{ asset('logoEnsam.png') }}" alt="{{ __('portal.navigation.portal_title') }}" class="w-30 h-11 object-contain" />
+            <img src="{{ asset('logoEnsam.png') }}" alt="{{ __('portal.navigation.portal_title') }}" class="w-28 h-11 object-contain" />
         </a>
         <div class="hidden md:flex items-center space-x-6 border-l pl-6 border-slate-200/20 dark:border-slate-800/20">
             {{-- <a

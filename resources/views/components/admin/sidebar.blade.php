@@ -10,8 +10,8 @@
 
 <!-- SideNavBar -->
 <aside id="adminSidebar"
-    class="fixed left-0 top-0 h-screen w-64 pt-16 sm:pt-20 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 space-y-2 tonal-layering z-40 transition-all duration-300 ease-in-out
-    -translate-x-full lg:translate-x-0 data-[collapsed=false]:lg:translate-x-0 data-[collapsed=true]:lg:-translate-x-full">
+    class="fixed left-0 top-0 h-screen max-h-screen w-64 pt-16 sm:pt-20 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 space-y-2 tonal-layering z-40 overflow-y-auto pb-8 transition-all duration-300 ease-in-out
+    -translate-x-full lg:translate-x-0">
     <div class="mb-8 px-4">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-on-primary">
@@ -67,74 +67,51 @@
 </aside>
 
 <script>
-    let sidebarCollapsed = false;
-
     function toggleSidebar() {
         const sidebar = document.getElementById('adminSidebar');
         const overlay = document.getElementById('sidebarOverlay');
-        const main = document.querySelector('main');
         const isDesktop = window.innerWidth >= 1024;
 
-        if (isDesktop) {
-            // Desktop: Collapse/Expand sidebar
-            sidebarCollapsed = !sidebarCollapsed;
-            localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
-            
-            if (sidebarCollapsed) {
-                sidebar.classList.add('-translate-x-full');
-                if (main) main.classList.add('sidebar-collapsed');
-            } else {
-                sidebar.classList.remove('-translate-x-full');
-                if (main) main.classList.remove('sidebar-collapsed');
-            }
-        } else {
-            // Mobile/Tablet: Show/Hide overlay
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+        if (!sidebar || !overlay) {
+            return;
         }
+
+        if (isDesktop) {
+            return;
+        }
+
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden', !sidebar.classList.contains('-translate-x-full'));
     }
 
     function closeSidebarOnMobile() {
         if (window.innerWidth < 1024) {
-            document.getElementById('adminSidebar').classList.add('-translate-x-full');
-            document.getElementById('sidebarOverlay').classList.add('hidden');
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar?.classList.add('-translate-x-full');
+            overlay?.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
         }
     }
-
-    // Initialize sidebar state from localStorage
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedState = localStorage.getItem('sidebarCollapsed');
-        if (savedState === 'true' && window.innerWidth >= 1024) {
-            sidebarCollapsed = true;
-            const sidebar = document.getElementById('adminSidebar');
-            const main = document.querySelector('main');
-            sidebar.classList.add('-translate-x-full');
-            if (main) main.classList.add('sidebar-collapsed');
-        }
-    });
 
     // Reset sidebar on window resize
     window.addEventListener('resize', function() {
         const sidebar = document.getElementById('adminSidebar');
         const overlay = document.getElementById('sidebarOverlay');
-        const main = document.querySelector('main');
-        
+
+        if (!sidebar || !overlay) {
+            return;
+        }
+
         if (window.innerWidth >= 1024) {
-            // Desktop: Show overlay is hidden
             overlay.classList.add('hidden');
-            
-            // Restore collapsed state if it was saved
-            if (sidebarCollapsed) {
-                sidebar.classList.add('-translate-x-full');
-                if (main) main.classList.add('sidebar-collapsed');
-            } else {
-                sidebar.classList.remove('-translate-x-full');
-                if (main) main.classList.remove('sidebar-collapsed');
-            }
+            sidebar.classList.remove('-translate-x-full');
+            document.body.classList.remove('overflow-hidden');
         } else {
-            // Mobile/Tablet: Reset sidebar position
             sidebar.classList.add('-translate-x-full');
-            if (main) main.classList.remove('sidebar-collapsed');
+            overlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
         }
     });
 
