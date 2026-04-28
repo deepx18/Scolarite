@@ -5,14 +5,14 @@
     'filters' => []
 ])
 
-<form method="GET" action="{{ $action }}" class="grid grid-cols-12 gap-4 mb-8">
+<form method="GET" action="{{ $action }}" class="grid grid-cols-12 gap-4 mb-8 items-center">
 
     <!-- Search Input -->
-    <div class="col-span-12 md:col-span-5 bg-surface-container-low rounded-2xl flex items-center px-4 border border-outline-variant/20">
-        <span class="material-symbols-outlined text-on-surface-variant">search</span>
+    <div class="col-span-12 md:col-span-6 bg-surface-container-low rounded-full flex items-center px-4 border border-outline-variant/20">
+        <span class="material-symbols-outlined text-on-surface-variant mr-3">search</span>
         <input 
             name="search" 
-            class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium text-on-surface placeholder-on-surface-variant"
+            class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium text-on-surface placeholder-on-surface-variant py-3"
             placeholder="{{ $searchPlaceholder }}" 
             type="text" 
             value="{{ request('search') }}"
@@ -22,7 +22,7 @@
     <!-- Filters -->
     @if(count($filters) > 0)
         @foreach($filters as $filter)
-            <div class="col-span-6 md:col-span-3 bg-surface-container-low rounded-2xl flex items-center px-4 border border-outline-variant/20">
+            <div class="col-span-6 md:col-span-2 bg-surface-container-low rounded-full flex items-center px-4 border border-outline-variant/20">
                 <span class="material-symbols-outlined text-on-surface-variant mr-2 text-sm">
                     {{ $filter['icon'] ?? 'filter_list' }}
                 </span>
@@ -30,7 +30,7 @@
                 <select 
                     name="{{ $filter['name'] }}"
                     onchange="this.form.submit()"
-                    class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none text-on-surface"
+                    class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none text-on-surface py-3"
                 >
                     <option value="">{{ $filter['placeholder'] }}</option>
 
@@ -51,7 +51,7 @@
     <div class="col-span-12 md:col-span-2">
         <button 
             type="submit"
-            class="w-full h-full bg-primary text-white rounded-2xl text-sm font-medium hover:opacity-90 transition"
+            class="w-full h-full bg-[#0f2755] text-white rounded-full text-sm font-semibold hover:bg-[#0b1f46] transition flex items-center justify-center gap-2 py-3"
         >
             {{ $submitLabel }}
         </button>

@@ -17,12 +17,12 @@
                 @endforeach
             </nav>
         @endif
-        <h1 class="text-4xl font-extrabold tracking-tight text-on-surface font-headline">{{ $title }}</h1>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface font-headline">{{ $title }}</h1>
         @if($description)
-            <p class="text-on-surface-variant mt-2 max-w-md">{{ $description }}</p>
+            <p class="text-lg text-secondary mt-3 max-w-2xl">{{ $description }}</p>
         @endif
     </div>
-    
+
     @if($slot->isNotEmpty())
         <div class="flex gap-4">
             {{ $slot }}

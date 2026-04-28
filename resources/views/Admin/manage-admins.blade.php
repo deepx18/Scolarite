@@ -50,9 +50,11 @@
                                 <input type="search" name="search" value="{{ old('search', $search ?? '') }}" placeholder="{{ __('admin.filter_admins_placeholder') }}" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-12 py-4 text-sm text-slate-700 shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
                             </div>
                         </form>
-                        <button type="button" onclick="document.getElementById('addAdminModal').classList.remove('hidden')" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[#002045] to-[#1a365d] px-6 py-4 text-white font-semibold shadow-lg shadow-slate-900/10 transition duration-200 hover:shadow-xl active:scale-[0.98]">
-                            <span class="material-symbols-outlined">add</span>
-                             {{ __('admin.add_new_admin') }}
+                        <button type="button" onclick="document.getElementById('addAdminModal').classList.remove('hidden')" class="inline-flex items-center justify-center gap-3 rounded-full bg-[#05203a] px-4 py-2 text-white font-medium shadow-sm transition duration-150 hover:opacity-95">
+                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#0b2a45] text-white">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </span>
+                            <span class="text-sm">{{ __('admin.add_new_admin') }}</span>
                         </button>
                     </div>
 

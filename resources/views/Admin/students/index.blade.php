@@ -8,7 +8,7 @@
                 <div>
                     <span
                         class="text-xs uppercase tracking-[0.3em] text-slate-500">{{ __('admin.admin_portal') }}</span>
-                    <h1 class="mt-2 text-3xl font-bold text-blue-950 dark:text-white">
+                    <h1 class="mt-2 text-4xl md:text-5xl font-extrabold text-blue-950 dark:text-white">
                         {{ __('admin.student_directory') }}
                     </h1>
                     <p class="mt-3 max-w-2xl text-sm text-slate-500">{{ __('admin.students.description') }}</p>
@@ -36,49 +36,55 @@
             @endif
 
             <!-- Filter Bar -->
-            <form method="GET" action="{{ route('admin.students.index') }}" class="grid grid-cols-12 gap-4 mb-8">
+            <form method="GET" action="{{ route('admin.students.index') }}" class="grid grid-cols-12 gap-4 mb-8 items-center">
                 <!-- Search Input -->
-                <div class="col-span-12 md:col-span-5 bg-surface-container-low p-2 rounded-xl flex items-center">
-                    <span class="material-symbols-outlined px-3 text-slate-400">search</span>
-                    <input name="search" class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium"
-                        placeholder="{{ __('admin.search_placeholder') }}" type="text"
-                        value="{{ request('search') }}" />
+                <div class="col-span-12 md:col-span-6">
+                    <div class="bg-surface-container-low rounded-full flex items-center px-4 py-3 shadow-sm">
+                        <span class="material-symbols-outlined text-slate-400 mr-3">search</span>
+                        <input name="search" class="bg-transparent border-none focus:ring-0 w-full text-sm md:text-base font-medium placeholder:text-slate-400"
+                            placeholder="{{ __('admin.search_placeholder') }}" type="text"
+                            value="{{ request('search') }}" />
+                    </div>
                 </div>
 
                  <!-- Action Buttons -->
-                 <div class="col-span-12 md:col-span-3 flex gap-2">
-                    <button type="submit" class="flex-1 bg-slate-900 text-white font-bold py-2 rounded-xl text-sm hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-sm">search</span>
+                 <div class="col-span-12 md:col-span-2">
+                    <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 rounded-full text-sm md:text-base hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">search</span>
                         {{ __('admin.search') }}
                     </button>
                 </div>
 
                 <!-- Department Filter -->
-                <div class="col-span-6 md:col-span-2 bg-surface-container-low rounded-xl flex items-center px-4">
-                    <span class="material-symbols-outlined text-slate-400 mr-2 text-sm">school</span>
-                    <select name="department" onchange="this.form.submit()"
-                        class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none">
-                        <option value="">{{ __('admin.department') }}</option>
-                        @foreach ($departments as $department)
-                            <option value="{{ $department }}" {{ request('department') === $department ? 'selected' : '' }}>
-                                {{ $department }}
-                            </option>
-                        @endforeach
-                    </select>
+                <div class="col-span-6 md:col-span-2">
+                    <div class="bg-surface-container-low rounded-full flex items-center px-4 py-3">
+                        <span class="material-symbols-outlined text-slate-400 mr-2 text-sm">school</span>
+                        <select name="department" onchange="this.form.submit()"
+                            class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none">
+                            <option value="">{{ __('admin.department') }}</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department }}" {{ request('department') === $department ? 'selected' : '' }}>
+                                    {{ $department }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Status Filter -->
-                <div class="col-span-6 md:col-span-2 bg-surface-container-low rounded-xl flex items-center px-4">
-                    <span class="material-symbols-outlined text-slate-400 mr-2 text-sm">radio_button_checked</span>
-                    <select name="status" onchange="this.form.submit()"
-                        class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none">
-                        <option value="">{{ __('admin.status') }}</option>
-                        @foreach ($statuses as $status)
-                            <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
-                                {{ __("admin.{$status}") === "admin.{$status}" ? ucfirst($status) : __("admin.{$status}") }}
-                            </option>
-                        @endforeach
-                    </select>
+                <div class="col-span-6 md:col-span-2">
+                    <div class="bg-surface-container-low rounded-full flex items-center px-4 py-3">
+                        <span class="material-symbols-outlined text-slate-400 mr-2 text-sm">radio_button_checked</span>
+                        <select name="status" onchange="this.form.submit()"
+                            class="bg-transparent border-none focus:ring-0 w-full text-sm font-medium appearance-none">
+                            <option value="">{{ __('admin.status') }}</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
+                                    {{ __("admin.{$status}") === "admin.{$status}" ? ucfirst($status) : __("admin.{$status}") }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Action Buttons -->
@@ -105,25 +111,23 @@
                     </thead>
                     <tbody class="divide-y divide-surface-container-low">
                         @forelse ($students as $student)
-                            <tr class="hover:bg-surface-container-low/30 transition-colors">
-                                <td class="p-5">
-                                    <div class="flex items-center gap-3">
+                            <tr class="hover:shadow-md transition-shadow bg-transparent">
+                                <td class="p-6">
+                                    <div class="flex items-center gap-4">
                                         <div
-                                            class="w-9 h-9 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed text-xs">
+                                            class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed text-sm shadow-sm">
                                             {{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1) }}
                                         </div>
-                                        <div>
-                                            <p class="font-bold text-on-surface text-sm">{{ $student->first_name }}
-                                                {{ $student->last_name }}
-                                            </p>
-                                            <p class="text-xs text-slate-400">{{ $student->email }}</p>
+                                        <div class="min-w-0">
+                                            <p class="font-semibold text-on-surface text-sm truncate">{{ $student->first_name }} {{ $student->last_name }}</p>
+                                            <p class="text-xs text-slate-400 truncate">{{ $student->email }}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700 hidden sm:table-cell whitespace-nowrap">{{ $student->apogee_number }}</td>
-                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700 hidden md:table-cell whitespace-nowrap">{{ $student->cne ?? 'N/A' }}</td>
-                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700 hidden lg:table-cell whitespace-nowrap">{{ $student->department }}</td>
-                                <td class="p-3 sm:p-5">
+                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden sm:table-cell whitespace-nowrap">{{ $student->apogee_number }}</td>
+                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden md:table-cell whitespace-nowrap">{{ $student->cne ?? 'N/A' }}</td>
+                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden lg:table-cell whitespace-nowrap">{{ $student->department }}</td>
+                                <td class="p-6">
                                     @php
                                         $statusClasses = [
                                             'active' => ['bg-emerald-50', 'text-emerald-700'],
@@ -141,15 +145,15 @@
                                         {{ $studentStatusLabel }}
                                     </span>
                                 </td>
-                                <td class="p-5 text-right">
-                                    <div class="flex items-center justify-end gap-2">
+                                <td class="p-6 text-right">
+                                    <div class="flex items-center justify-end gap-3">
                                             <a href="{{ route('admin.students.show', $student) }}"
-                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200 transition"
+                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 transition shadow-sm"
                                                 title="{{ __('admin.actions.view') }}">
                                             <span class="material-symbols-outlined text-base">visibility</span>
                                         </a>
                                             <a href="{{ route('admin.students.edit', $student) }}"
-                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 transition"
+                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-50 text-amber-600 hover:bg-amber-100 transition shadow-sm"
                                                 title="{{ __('admin.actions.edit') }}">
                                             <span class="material-symbols-outlined text-base">edit</span>
                                         </a>
@@ -158,7 +162,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition"
+                                                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 transition shadow-sm"
                                                 title="{{ __('admin.actions.delete') }}">
                                                 <span class="material-symbols-outlined text-base">delete</span>
                                             </button>
