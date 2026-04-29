@@ -14,7 +14,9 @@
             <x-client.admin-section class="p-6">
                 <div class="text-center">
                     <div class="mb-4 flex justify-center">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvzTLW7XVKdQDbl9Zial6-tbHxYohgUxvgOC8MGTGQD5zajxXQNGNTxEkNJS1kZ9BUTqXVUFNFsXVhtL6oFoUX50gyVmLPsan4zxGaihb9rgZ1fqqdtjBPZeiyvD4-U-CXoVxz0fNSayiAicw4B-EYdapiIqgETVjX9aiCeohQwBxoWd_ghUIgB-CdlbrZaf_XyIK6BZtSRkIqrlwD71p6Djt9gAh7J_IDKkUSn1tkI4CU0-_7pS4StIFhT6cR8vB4AIsxWxizVBs"
+                        
+                        <img 
+                        src="https://ui-avatars.com/api/?name={{ urlencode(auth('student')->user()->first_name . " " . auth('student')->user()->last_name) }}&background=002045&color=ffffff&size=128" 
                             alt="{{ __('portal.profile.page_title') }}"
                             class="w-28 h-28 rounded-full object-cover ring-6 ring-primary/10 shadow-lg" />
                     </div>
@@ -25,12 +27,12 @@
                     <p class="text-xs font-headline font-bold text-secondary-container uppercase tracking-wider">
                         {{ __('portal.profile.sidebar.active_student') }}</p>
                 </div>
-                <div class="mt-6 pt-6 border-t border-outline-variant/20">
+                {{-- <div class="mt-6 pt-6 border-t border-outline-variant/20">
                     <x-client.admin-button variant="tonal" icon="photo_camera"
                         class="w-full justify-center rounded-full shadow-sm py-3">
                         {{ __('portal.profile.sidebar.edit_profile_picture') }}
                     </x-client.admin-button>
-                </div>
+                </div> --}}
             </x-client.admin-section>
         </div>
 
@@ -67,12 +69,12 @@
                             {{ auth('student')->user()->phone ?? __('portal.profile.personal.fallback_phone') }}</p>
                     </div>
                 </div>
-                <div class="mt-6 pt-6 border-t border-outline-variant/20">
+                {{-- <div class="mt-6 pt-6 border-t border-outline-variant/20">
                     <x-client.admin-button variant="tonal" icon="edit" href="#" size="sm"
                         class="rounded-full shadow-sm px-5 py-2">
                         {{ __('portal.profile.personal.edit_information') }}
                     </x-client.admin-button>
-                </div>
+                </div> --}}
             </x-client.admin-section>
 
             <!-- Academic Information -->
@@ -133,14 +135,14 @@
                         </p>
                     </div>
                 </div>
-                <div class="mt-6 pt-6 border-t border-outline-variant/20">
+                {{-- <div class="mt-6 pt-6 border-t border-outline-variant/20">
                     <x-client.admin-button variant="tonal" icon="edit" href="#" size="sm">
                         {{ __('portal.profile.contact.edit_contact_info') }}
                     </x-client.admin-button>
-                </div>
+                </div> --}}
             </x-client.admin-section>
 
-            <!-- Account Actions -->
+            {{-- <!-- Account Actions -->
             <x-client.admin-section :title="__('portal.profile.account.title')"
                 :description="__('portal.profile.account.description')">
                 <div class="space-y-3 flex flex-col">
@@ -152,7 +154,7 @@
                         {{ __('portal.profile.account.deactivate_account') }}
                     </x-client.admin-button>
                 </div>
-            </x-client.admin-section>
+            </x-client.admin-section> --}}
         </div>
     </div>
 

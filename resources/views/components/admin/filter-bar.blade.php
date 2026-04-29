@@ -35,16 +35,12 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="col-span-12 md:col-span-3 flex gap-2">
-        <button type="button" onclick="const input = document.createElement('input'); input.type = 'hidden'; input.name = 'export'; input.value = '1'; this.form.appendChild(input); this.form.submit();"
-            class="flex-1 bg-surface-container-highest text-on-surface font-bold py-2 rounded-xl text-sm hover:bg-slate-300 transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-sm">file_download</span>
+    <div class="col-span-12 md:col-span-3 flex gap-2 justify-end">
+        <button type="button"
+            onclick="const input = document.createElement('input'); input.type = 'hidden'; input.name = 'export'; input.value = '1'; this.form.appendChild(input); this.form.submit();"
+            class="bg-surface-container-highest text-on-surface font-bold py-3 rounded-full text-base hover:bg-slate-300 transition-colors flex items-center justify-center gap-3 px-5">
+            <span class="material-symbols-outlined text-base">file_download</span>
             {{ __('admin.export') }}
-        </button>
-        <button type="submit"
-            class="flex-1 bg-primary text-on-primary font-bold py-2 rounded-xl text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-sm">bolt</span>
-            {{ __('admin.bulk_action') }}
         </button>
     </div>
 </form>

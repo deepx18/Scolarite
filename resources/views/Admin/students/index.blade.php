@@ -87,13 +87,19 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                {{-- <div class="col-span-12 md:col-span-3 flex gap-2">
-                    <button type="submit" class="flex-1 bg-slate-900 text-white font-bold py-2 rounded-xl text-sm hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-sm">search</span>
-                        {{ __('admin.search') }}
+                <!-- Export & Group Actions -->
+                <div class="col-span-12 md:col-span-2 flex items-center justify-end gap-3">
+                    <a href="{{ route('admin.students.export', request()->all() ) }}"
+                        class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base">file_download</span>
+                        {{ __('admin.export') }}
+                    </a>
+                    <button type="button" id="group-action-btn"
+                        class="rounded-full bg-blue-950 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition flex items-center gap-2">
+                        <span class="material-symbols-outlined">bolt</span>
+                        {{ __('admin.group_action') }}
                     </button>
-                </div> --}}
+                </div>
             </form>
 
             <!-- Students Table -->
@@ -134,12 +140,15 @@
                                             'active' => ['bg-emerald-50', 'text-emerald-700'],
                                             'inactive' => ['bg-slate-100', 'text-slate-700'],
                                             'suspended' => ['bg-rose-50', 'text-rose-700'],
+                                            'pending' => ['bg-amber-50', 'text-amber-700'],
+                                            'in_review' => ['bg-sky-50', 'text-sky-600'],
+                                            'rejected' => ['bg-rose-50', 'text-rose-700'],
                                         ];
                                         $statusClass = $statusClasses[$student->status] ?? ['bg-slate-100', 'text-slate-700'];
                                         $statusKey = 'admin.' . $student->status;
                                         $studentStatusLabel = __($statusKey);
                                         if ($studentStatusLabel === $statusKey) {
-                                            $studentStatusLabel = ucfirst($student->status);
+                                            $studentStatusLabel = ucfirst(str_replace('_', ' ', $student->status));
                                         }
                                     @endphp
                                     <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $statusClass[0] }} {{ $statusClass[1] }}">
