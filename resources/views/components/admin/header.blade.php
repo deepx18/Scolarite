@@ -1,7 +1,7 @@
 <!-- Header Section -->
-<header class="flex justify-between items-end mb-12">
-    <div>
-        <nav class="flex items-center gap-2 text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+<header class="flex flex-col lg:flex-row justify-between items-start gap-6 mb-12">
+    <div class="w-full lg:w-auto">
+        <nav class="flex items-center flex-wrap gap-2 text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
             <span>{{ __('admin.breadcrumb.admin') }}</span>
             <span class="material-symbols-outlined text-[10px]">chevron_right</span>
             <span class="text-primary">{{ __('admin.all_requests') }}</span>
@@ -23,7 +23,7 @@
             </button>
 
             <div id="requestersMenu"
-                class="hidden absolute right-0 mt-2 w-72 max-h-64 overflow-auto rounded-2xl bg-white border border-slate-200 shadow-xl z-50">
+                class="hidden absolute right-0 mt-2 w-full max-w-xs sm:max-w-sm max-h-64 overflow-auto rounded-2xl bg-white border border-slate-200 shadow-xl z-50">
                 <div class="p-3 text-sm text-slate-500">Recent requesters</div>
                 <div id="requestersList" class="divide-y divide-slate-100"></div>
                 <div id="requestersFooter" class="p-2 text-center text-xs text-slate-400"></div>

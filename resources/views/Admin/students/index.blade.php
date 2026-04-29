@@ -130,10 +130,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden sm:table-cell whitespace-nowrap">{{ $student->apogee_number }}</td>
-                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden md:table-cell whitespace-nowrap">{{ $student->cne ?? 'N/A' }}</td>
-                                <td class="p-6 text-xs sm:text-sm text-slate-700 hidden lg:table-cell whitespace-nowrap">{{ $student->department }}</td>
-                                <td class="p-6">
+                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700  sm:table-cell whitespace-nowrap">{{ $student->apogee_number }}</td>
+                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700  md:table-cell whitespace-nowrap">{{ $student->cne ?? 'N/A' }}</td>
+                                <td class="p-3 sm:p-5 text-xs sm:text-sm text-slate-700  lg:table-cell whitespace-nowrap">{{ $student->department }}</td>
+                                <td class="p-3 sm:p-5">
+
                                     @php
                                         $statusClasses = [
                                             'active' => ['bg-emerald-50', 'text-emerald-700'],

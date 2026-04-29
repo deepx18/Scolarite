@@ -26,7 +26,7 @@
 
         <!-- Data Table Container -->
         <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-full">
+            <table class="w-full text-left border-collapse min-w-full md:min-w-[720px]">
                 <thead>
                     <tr class="bg-surface-container-low/50">
                         <th
