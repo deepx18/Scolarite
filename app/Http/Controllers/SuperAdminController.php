@@ -46,7 +46,7 @@ class SuperAdminController extends Controller
 
     public function show(Admin $admin)
     {
-        return view('admin.show-admin', compact('admin'));
+        return view('Admin.show-admin', compact('admin'));
     }
 
     public function edit(Admin $admin)
