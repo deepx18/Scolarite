@@ -18,9 +18,9 @@ class SuperAdminController extends Controller
                 ->orWhere('email', 'like', "%{$search}%")
                 ->orWhere('department', 'like', "%{$search}%");
         })
-        ->orderByDesc('created_at')
-        ->paginate(10)
-        ->withQueryString();
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            ->withQueryString();
 
         $totalAdmins = Admin::count();
         $adminsAddedToday = Admin::whereDate('created_at', now()->toDateString())->count();
@@ -31,12 +31,16 @@ class SuperAdminController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'password.not_regex' => 'Le mot de passe ne peut pas être composé uniquement de chiffres.',
+        ];
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:admins,email',
             'department' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-        ]);
+            'password' => ['required', 'string', 'min:8', 'not_regex:/^\\d+$/'],
+        ], $messages);
 
         $data['role'] = 'admin';
         Admin::create($data);
@@ -56,12 +60,16 @@ class SuperAdminController extends Controller
 
     public function update(Request $request, Admin $admin)
     {
+        $messages = [
+            'password.not_regex' => 'Le mot de passe ne peut pas être composé uniquement de chiffres.',
+        ];
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('admins')->ignore($admin->id)],
             'department' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8',
-        ]);
+            'password' => ['nullable', 'string', 'min:8', 'not_regex:/^\\d+$/'],
+        ], $messages);
 
         if (empty($data['password'])) {
             unset($data['password']);

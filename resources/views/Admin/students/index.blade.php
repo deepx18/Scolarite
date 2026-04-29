@@ -87,18 +87,13 @@
                     </div>
                 </div>
 
-                <!-- Export & Group Actions -->
-                <div class="col-span-12 md:col-span-2 flex items-center justify-end gap-3">
+                <!-- Export Actions -->
+                <div class="col-span-12 md:col-span-2 flex items-center justify-end">
                     <a href="{{ route('admin.students.export', request()->all() ) }}"
                         class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition flex items-center gap-2">
                         <span class="material-symbols-outlined text-base">file_download</span>
                         {{ __('admin.export') }}
                     </a>
-                    <button type="button" id="group-action-btn"
-                        class="rounded-full bg-blue-950 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition flex items-center gap-2">
-                        <span class="material-symbols-outlined">bolt</span>
-                        {{ __('admin.group_action') }}
-                    </button>
                 </div>
             </form>
 
