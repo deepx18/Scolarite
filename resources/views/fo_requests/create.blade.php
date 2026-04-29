@@ -59,7 +59,7 @@
                 >
                     <x-client.form-type-selection 
                         :types="$types"
-                        :selectedType="old('type')"
+                        :selectedType="old('type', $selectedType)"
                     />
                 </x-client.admin-section>
             </div>
