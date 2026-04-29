@@ -1,8 +1,8 @@
 @props(['requests' => []])
 
 <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
-    <div class="overflow-x-auto overflow-y-hidden">
-        <table class="w-full min-w-full text-left border-collapse">
+    <div class="overflow-x-auto max-w-full">
+        <table class="w-full min-w-full table-auto text-left border-collapse">
             <thead>
                 <tr class="bg-surface-container-high/50 text-on-surface-variant font-label text-xs uppercase tracking-widest">
                     <th class="px-8 py-5 font-bold">Request ID</th>

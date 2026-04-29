@@ -25,8 +25,8 @@
         <x-admin.filter-bar :requestTypes="$requestTypes" :statuses="$statuses" />
 
         <!-- Data Table Container -->
-        <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-full md:min-w-[720px]">
+        <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm overflow-x-auto max-w-full">
+            <table class="w-full min-w-full md:min-w-[720px] table-auto text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-low/50">
                         <th
@@ -149,7 +149,9 @@
                     <select name="status" id="statusSelect"
                         class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
                         @foreach(\App\Models\Request::STATUSES as $key => $label)
-                            <option value="{{ $key }}">{{ __('admin.statuses.' . $key) }}</option>
+                            @if (! in_array($key, ['pending', 'in_review']))
+                                <option value="{{ $key }}">{{ __('admin.statuses.' . $key) }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

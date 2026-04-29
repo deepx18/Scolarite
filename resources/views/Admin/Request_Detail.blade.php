@@ -127,7 +127,9 @@
                     <label class="block text-sm font-semibold text-slate-700">{{ __('admin.modals.status') }}</label>
                     <select name="status" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
                         @foreach(\App\Models\Request::STATUSES as $key => $label)
-                            <option value="{{ $key }}" {{ $request->status === $key ? 'selected' : '' }}>{{ __('admin.statuses.' . $key) }}</option>
+                            @if (! in_array($key, ['pending', 'in_review']))
+                                <option value="{{ $key }}" {{ $request->status === $key ? 'selected' : '' }}>{{ __('admin.statuses.' . $key) }}</option>
+                            @endif
                         @endforeach
                     </select>
                      <div>
