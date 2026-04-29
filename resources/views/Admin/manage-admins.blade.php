@@ -144,6 +144,15 @@
 
             <form action="{{ route('admin.manage.store') }}" method="POST" class="space-y-6 px-8 py-8">
                 @csrf
+                @if($errors->any())
+                    <div class="rounded-md border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
+                        <ul class="list-disc pl-5">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <label class="block">
                         <span class="text-sm font-semibold text-slate-700">{{ __('admin.admin_name_label') }}</span>
@@ -173,4 +182,13 @@
             </form>
         </div>
     </div>
+
+    @if($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var modal = document.getElementById('addAdminModal');
+                if (modal) modal.classList.remove('hidden');
+            });
+        </script>
+    @endif
 @endsection

@@ -6,7 +6,8 @@
             <span class="material-symbols-outlined text-[10px]">chevron_right</span>
             <span class="text-primary">{{ __('admin.all_requests') }}</span>
         </nav>
-        <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">{{ __('admin.administrative_requests') }}</h1>
+        <h1 class="text-4xl font-extrabold tracking-tight text-on-surface">{{ __('admin.administrative_requests') }}
+        </h1>
         <p class="text-on-surface-variant mt-2 max-w-md">{{ __('admin.administrative_requests_description') }}</p>
     </div>
     <div class="flex gap-4">
@@ -23,10 +24,12 @@
             </button>
 
             <div id="requestersMenu"
-                class="hidden absolute right-0 mt-2 w-full max-w-xs sm:max-w-sm max-h-64 overflow-auto rounded-2xl bg-white border border-slate-200 shadow-xl z-50">
-                <div class="p-3 text-sm text-slate-500">Recent requesters</div>
+                class="hidden absolute right-0 mt-3 w-72 sm:w-80 max-h-72 overflow-auto rounded-2xl bg-white border border-slate-200 shadow-lg z-50">
+                <div class="absolute -top-2 right-6 w-3 h-3 bg-white rotate-45 border-t border-l border-slate-200">
+                </div>
+                <div class="px-4 pt-4 pb-2 text-sm text-slate-500 font-medium">Recent requesters</div>
                 <div id="requestersList" class="divide-y divide-slate-100"></div>
-                <div id="requestersFooter" class="p-2 text-center text-xs text-slate-400"></div>
+                <div id="requestersFooter" class="p-3 text-center text-xs text-slate-400"></div>
             </div>
         </div>
     </div>
